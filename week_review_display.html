@@ -509,47 +509,87 @@
         }
 
         function displayAnalysisData(data) {
-            // Validate data structure
-            if (!data || !data.analysis) {
-                showError('Invalid analysis data format: missing analysis section');
+            // Validate data structure - check for either format
+            const isWeeklyFormat = data && (data.keyword_counts || data.trend_counts || data.weekly_summary);
+            const isDailyFormat = data && data.analysis;
+
+            if (!isWeeklyFormat && !isDailyFormat) {
+                showError('Invalid analysis data format: unrecognized structure');
                 return;
             }
 
             // Hide loading message and show content
             document.getElementById('loadingMessage').style.display = 'none';
             document.getElementById('analysisContent').style.display = 'block';
-            
+
+            // Handle timestamp and date
+            let timestamp, dateStr;
+            if (isWeeklyFormat) {
+                timestamp = data.generated_date ? new Date(data.generated_date) : new Date();
+                dateStr = data.date_range || timestamp.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } else {
+                timestamp = data.analysis.analysis_timestamp ?
+                    new Date(data.analysis.analysis_timestamp) : new Date();
+                dateStr = timestamp.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+
             // Update modal title and date
-            const timestamp = data.analysis.analysis_timestamp ? 
-                new Date(data.analysis.analysis_timestamp) : new Date();
-            const dateStr = timestamp.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            
             document.getElementById('modalTitle').textContent = `📊 Analysis: ${dateStr}`;
             document.getElementById('analysisDate').textContent = dateStr;
-            
+
+            // Extract data based on format
+            let keywords, trendingTopics, summary, headlineCount;
+
+            if (isWeeklyFormat) {
+                // Convert keyword_counts object to array for processing
+                keywords = data.keyword_counts ? Object.keys(data.keyword_counts) : [];
+                // Convert trend_counts object to array for processing
+                trendingTopics = data.trend_counts ? Object.keys(data.trend_counts) : [];
+                summary = data.weekly_summary;
+                headlineCount = data.total_days_analyzed || 0;
+            } else {
+                // Daily format
+                keywords = data.analysis.keywords || [];
+                trendingTopics = data.analysis.trending_topics || [];
+                summary = data.analysis.summary;
+                headlineCount = data.headline_count || 0;
+            }
+
             // Update stats
-            document.getElementById('statHeadlines').textContent = data.headline_count || 0;
-            document.getElementById('statKeywords').textContent = data.analysis.keywords?.length || 0;
-            document.getElementById('statTrends').textContent = data.analysis.trending_topics?.length || 0;
-            
+            document.getElementById('statHeadlines').textContent = headlineCount;
+            document.getElementById('statKeywords').textContent = keywords.length;
+            document.getElementById('statTrends').textContent = trendingTopics.length;
+
             // Update summary
             const summaryDiv = document.getElementById('summaryContent');
-            if (data.analysis.summary) {
-                summaryDiv.innerHTML = `<p>${data.analysis.summary}</p>`;
+            if (summary) {
+                summaryDiv.innerHTML = `<p>${summary}</p>`;
             } else {
                 summaryDiv.innerHTML = '<p style="color: var(--neutral-500); font-style: italic;">No summary available for this analysis.</p>';
             }
-            
+
             // Process keywords if available
-            if (data.analysis.keywords && data.analysis.keywords.length > 0) {
-                const keywordFreq = calculateWordFrequency(data.analysis.keywords);
+            if (keywords && keywords.length > 0) {
+                let keywordFreq;
+                if (isWeeklyFormat) {
+                    // Use the existing counts
+                    keywordFreq = data.keyword_counts;
+                } else {
+                    // Calculate frequency from array
+                    keywordFreq = calculateWordFrequency(keywords);
+                }
+
                 updateWordCloudStats('keywordStats', keywordFreq, 'keywords');
                 populateFrequencyTable('keywordTableBody', keywordFreq);
-                
+
                 setTimeout(() => {
                     generateWordCloudInModal('keywordCloudModal', keywordFreq, 'keywords');
                 }, 300);
@@ -558,13 +598,21 @@
                 document.getElementById('keywordTableBody').innerHTML = '<tr><td colspan="2" style="text-align: center; font-style: italic; color: var(--neutral-500);">No keyword data available</td></tr>';
                 document.getElementById('keywordCloudModal').innerHTML = '<div style="padding: 40px; text-align: center; color: #6b7280;">No keyword data available</div>';
             }
-            
+
             // Process trending topics if available
-            if (data.analysis.trending_topics && data.analysis.trending_topics.length > 0) {
-                const trendFreq = calculateWordFrequency(data.analysis.trending_topics);
+            if (trendingTopics && trendingTopics.length > 0) {
+                let trendFreq;
+                if (isWeeklyFormat) {
+                    // Use the existing counts
+                    trendFreq = data.trend_counts;
+                } else {
+                    // Calculate frequency from array
+                    trendFreq = calculateWordFrequency(trendingTopics);
+                }
+
                 updateWordCloudStats('trendStats', trendFreq, 'trends');
                 populateFrequencyTable('trendTableBody', trendFreq);
-                
+
                 setTimeout(() => {
                     generateWordCloudInModal('trendCloudModal', trendFreq, 'trends');
                 }, 300);
@@ -573,8 +621,8 @@
                 document.getElementById('trendTableBody').innerHTML = '<tr><td colspan="2" style="text-align: center; font-style: italic; color: var(--neutral-500);">No trending topics data available</td></tr>';
                 document.getElementById('trendCloudModal').innerHTML = '<div style="padding: 40px; text-align: center; color: #6b7280;">No trending topics data available</div>';
             }
-            
-            // Display headlines if available
+
+            // Display headlines if available (mainly for daily format)
             if (data.raw_headlines && data.raw_headlines.length > 0) {
                 displayHeadlines(data.raw_headlines);
             } else {
