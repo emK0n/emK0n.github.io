@@ -784,6 +784,112 @@
             }
         }
 
+        // Load week reviews from wir/ folder
+        async function loadWeekReviews() {
+            const grid = document.getElementById('reviewGrid');
+            window.reviewsLoaded = true;
+
+            try {
+                // Simulate API call to get week review files
+                const response = await fetch('/api/week-reviews');
+
+                if (!response.ok) {
+                    throw new Error('Failed to load reviews');
+                }
+
+                const reviews = await response.json();
+
+                if (reviews.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📊</div>
+                            <p>No week reviews available yet. Analysis reports will appear here once generated!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Create a simple list of available files
+                grid.innerHTML = `
+                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Available Week Reviews</h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            ${reviews.map(review => `
+                                <li style="margin-bottom: 15px;">
+                                    <a href="javascript:void(0)"
+                                       onclick="openWeekReview('${review.filename}')"
+                                       style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
+                                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                        <span style="font-size: 1.5em;">📊</span>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--primary-600);">${review.title}</div>
+                                            <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${review.date} • ${review.topicsCount} topics analyzed</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+
+            } catch (error) {
+                // Fallback for development/demo - generate list based on current_events_analysis pattern
+                grid.innerHTML = `
+                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Available Week Reviews</h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 15px;">
+                                <a href="javascript:void(0)"
+                                   onclick="openWeekReview('current_events_analysis_20250626_072400.json')"
+                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                    <span style="font-size: 1.5em;">📊</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 26, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-26 • Technology & Business Focus</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <a href="javascript:void(0)"
+                                   onclick="openWeekReview('current_events_analysis_20250625_072400.json')"
+                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                    <span style="font-size: 1.5em;">📊</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 25, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-25 • Technology & Business Focus</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <a href="javascript:void(0)"
+                                   onclick="openWeekReview('current_events_analysis_20250624_072400.json')"
+                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                    <span style="font-size: 1.5em;">📊</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 24, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-24 • Technology & Business Focus</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Function to open week review in new tab
+        function openWeekReview(filename) {
+            const url = `week_review_display.html?file=${encodeURIComponent(filename)}`;
+            window.open(url, '_blank');
+        }
+
         // Check for video file and show/hide accordingly
         function checkVideoAvailability() {
             const video = document.getElementById('aboutVideo');
