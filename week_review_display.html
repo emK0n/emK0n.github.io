@@ -571,7 +571,16 @@
             // Update summary
             const summaryDiv = document.getElementById('summaryContent');
             if (summary) {
-                summaryDiv.innerHTML = `<p>${summary}</p>`;
+                // Convert markdown-style formatting to HTML with proper line breaks
+                const formattedSummary = summary
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // Convert **text** to <strong>text</strong>
+                    .split(/\n\s*\n/) // Split on double line breaks
+                    .map(paragraph => paragraph.trim())
+                    .filter(paragraph => paragraph.length > 0)
+                    .map(paragraph => `<p>${paragraph}</p>`)
+                    .join('');
+
+                summaryDiv.innerHTML = formattedSummary;
             } else {
                 summaryDiv.innerHTML = '<p style="color: var(--neutral-500); font-style: italic;">No summary available for this analysis.</p>';
             }
