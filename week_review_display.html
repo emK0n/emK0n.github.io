@@ -4,120 +4,458 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week in Review Modal</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.7/d3.layout.cloud.min.js"></script>
+    <style>
+        :root {
+            --primary-600: #4f46e5;
+            --neutral-50: #f9fafb;
+            --neutral-500: #6b7280;
+            --neutral-600: #4b5563;
+            --neutral-700: #374151;
+            --accent-electric: #667eea;
+            --radius-md: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 12px;
+            max-width: 95vw;
+            max-height: 95vh;
+            width: 1200px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-content {
+            padding: 32px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .week-review-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .week-review-header h1 {
+            font-size: 2rem;
+            color: var(--primary-600);
+            margin-bottom: 8px;
+        }
+
+        .week-review-header h2 {
+            font-size: 1.25rem;
+            color: var(--neutral-600);
+            margin-bottom: 24px;
+        }
+
+        .week-review-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-600);
+            line-height: 1;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--neutral-500);
+            margin-top: 4px;
+        }
+
+        .week-review-section {
+            margin-bottom: 40px;
+        }
+
+        .week-review-section h3 {
+            font-size: 1.5rem;
+            color: var(--neutral-700);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-content {
+            background: var(--neutral-50);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-electric);
+        }
+
+        .summary-content p {
+            color: var(--neutral-700);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* New centered layout for word clouds and tables */
+        .word-clouds-section {
+            margin-bottom: 40px;
+        }
+
+        .word-clouds-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .word-cloud-column {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .word-cloud-column h3 {
+            font-size: 1.25rem;
+            color: var(--neutral-700);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .word-cloud-modal {
+            width: 450px;
+            height: 250px;
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+            border: 2px solid #e5e7eb;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .word-cloud-stats-modal {
+            text-align: center;
+            color: var(--neutral-600);
+            font-size: 0.875rem;
+            margin-bottom: 24px;
+        }
+
+        .data-table {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .frequency-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .frequency-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .frequency-table th,
+        .frequency-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .frequency-table th {
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .frequency-table td {
+            font-size: 0.875rem;
+            color: var(--neutral-700);
+        }
+
+        .frequency-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .frequency-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid var(--primary-600);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .headlines-section {
+            margin-top: 40px;
+        }
+
+        .headline-item {
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-electric);
+        }
+
+        .headline-item h4 {
+            color: var(--primary-600);
+            margin-bottom: 10px;
+        }
+
+        .headline-item h4 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .headline-item h4 a:hover {
+            text-decoration: underline;
+        }
+
+        .headline-meta {
+            color: var(--neutral-500);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .headline-summary {
+            color: var(--neutral-700);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: var(--neutral-600);
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+            border: 2px dashed #e5e7eb;
+        }
+
+        .error-message .error-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1024px) {
+            .word-clouds-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .word-cloud-column {
+                max-width: 100%;
+            }
+            
+            .week-review-stats {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .modal-container {
+                width: 95vw;
+                margin: 20px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .week-review-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .word-cloud-modal {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Modal Article Viewer -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container" id="modalContainer">
             <div class="modal-header" id="modalHeader">
-                <span id="modalTitle">📊 Loading Analysis...</span>
+                <h1 id="modalTitle">📊 Loading Analysis...</h1>
                 <button class="modal-close" id="modalClose" onclick="closeModal()">&times;</button>
             </div>
-            <div class="modal-filters" style="display: none;">
-                <div class="filter-section">
-                    <label>Filter:</label>
-                    <div class="filter-buttons">
-                        <button class="filter-btn active" data-filter="all" onclick="setArticleFilter('all')">All Articles</button>
-                        <button class="filter-btn" data-filter="boosted" onclick="setArticleFilter('boosted')">Boosted Only</button>
-                    </div>
-                </div>
-                <div class="sort-section">
-                    <label>Sort by:</label>
-                    <div class="sort-buttons">
-                        <button class="sort-btn active" data-sort="score" onclick="setArticleSort('score')">Highest Score</button>
-                        <button class="sort-btn" data-sort="recent" onclick="setArticleSort('recent')">Most Recent</button>
-                    </div>
-                </div>
-            </div>
             <div class="modal-content">
-                <div class="modal-articles-list" id="modalArticlesList">
-                    <div class="week-review-modal-content" id="weekReviewPrintContent">
-                        <div id="loadingMessage" style="text-align: center; padding: 40px; color: var(--neutral-600);">
-                            <div class="loading-spinner" style="margin: 0 auto 20px;"></div>
-                            <p>Loading analysis data...</p>
+                <div class="week-review-modal-content" id="weekReviewPrintContent">
+                    <div id="loadingMessage" style="text-align: center; padding: 40px; color: var(--neutral-600);">
+                        <div class="loading-spinner" style="margin: 0 auto 20px;"></div>
+                        <p>Loading analysis data...</p>
+                    </div>
+                    
+                    <div id="analysisContent" style="display: none;">
+                        <div class="week-review-header">
+                            <h1 id="analysisTitle">📊 Week in Review Analysis</h1>
+                            <h2 id="analysisDate"></h2>
+                            <div class="week-review-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statHeadlines">0</span>
+                                    <span class="stat-label">Headlines Analyzed</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statKeywords">0</span>
+                                    <span class="stat-label">Keywords Found</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statTrends">0</span>
+                                    <span class="stat-label">Trends Found</span>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div id="analysisContent" style="display: none;">
-                            <div class="week-review-header">
-                                <h1 id="analysisTitle">📊 Week in Review Analysis</h1>
-                                <h2 id="analysisDate"></h2>
-                                <div class="week-review-stats">
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="statHeadlines">0</span>
-                                        <span class="stat-label">Headlines Analyzed</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="statKeywords">0</span>
-                                        <span class="stat-label">Keywords Found</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="statTrends">0</span>
-                                        <span class="stat-label">Trends Found</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="week-review-section">
-                                <h3>📝 Analysis Summary</h3>
-                                <div class="summary-content" id="summaryContent">
-                                    <!-- Dynamic content will be loaded here -->
-                                </div>
+                        <div class="week-review-section">
+                            <h3>📝 Analysis Summary</h3>
+                            <div class="summary-content" id="summaryContent">
+                                <!-- Dynamic content will be loaded here -->
                             </div>
+                        </div>
 
-                            <div class="word-clouds-section">
-                                <div class="word-cloud-container">
+                        <div class="word-clouds-section">
+                            <div class="word-clouds-container">
+                                <div class="word-cloud-column">
                                     <h3>🔍 Top Keywords</h3>
                                     <div class="word-cloud-modal" id="keywordCloudModal"></div>
                                     <div class="word-cloud-stats-modal" id="keywordStats">
                                         Loading...
                                     </div>
+                                    <div class="data-table">
+                                        <table class="frequency-table">
+                                            <thead>
+                                                <tr><th>Keyword</th><th>Mentions</th></tr>
+                                            </thead>
+                                            <tbody id="keywordTableBody">
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
-                                <div class="word-cloud-container">
+                                <div class="word-cloud-column">
                                     <h3>📈 Trending Topics</h3>
                                     <div class="word-cloud-modal" id="trendCloudModal"></div>
                                     <div class="word-cloud-stats-modal" id="trendStats">
                                         Loading...
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="data-tables-section">
-                                <div class="data-table">
-                                    <h3>🔍 Keyword Frequency</h3>
-                                    <table class="frequency-table">
-                                        <thead>
-                                            <tr><th>Keyword</th><th>Mentions</th></tr>
-                                        </thead>
-                                        <tbody id="keywordTableBody">
-                                            <!-- Dynamic content will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="data-table">
-                                    <h3>📈 Trending Topics</h3>
-                                    <table class="frequency-table">
-                                        <thead>
-                                            <tr><th>Topic</th><th>Mentions</th></tr>
-                                        </thead>
-                                        <tbody id="trendTableBody">
-                                            <!-- Dynamic content will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="week-review-section" id="headlinesSection">
-                                <h3>📰 Analyzed Headlines</h3>
-                                <div id="headlinesList">
-                                    <!-- Dynamic headlines will be loaded here -->
+                                    <div class="data-table">
+                                        <table class="frequency-table">
+                                            <thead>
+                                                <tr><th>Topic</th><th>Mentions</th></tr>
+                                            </thead>
+                                            <tbody id="trendTableBody">
+                                                <!-- Dynamic content will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="week-review-section headlines-section" id="headlinesSection">
+                            <h3>📰 Analyzed Headlines</h3>
+                            <div id="headlinesList">
+                                <!-- Dynamic headlines will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="errorMessage" class="error-message" style="display: none;">
+                        <div class="error-icon">❌</div>
+                        <h3>Unable to Load Analysis Data</h3>
+                        <p>The analysis file could not be found or loaded. Please check that the file exists and try again.</p>
                     </div>
                 </div>
             </div>
@@ -139,8 +477,7 @@
             if (filename) {
                 loadAnalysisData(filename);
             } else {
-                // Fallback to demo data
-                loadDemoData();
+                showError('No analysis file specified in URL parameters.');
             }
         });
 
@@ -148,7 +485,7 @@
             try {
                 const response = await fetch(`wir/${filename}`);
                 if (!response.ok) {
-                    throw new Error(`Failed to load ${filename}`);
+                    throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
                 }
                 
                 const data = await response.json();
@@ -157,45 +494,34 @@
                 
             } catch (error) {
                 console.error('Error loading analysis data:', error);
-                // Fallback to demo data if file loading fails
-                loadDemoData();
+                showError(`Failed to load analysis file: ${error.message}`);
             }
         }
 
-        function loadDemoData() {
-            // Use the sample data from the provided JSON
-            currentAnalysisData = {
-                "analysis": {
-                    "summary": "Key tech/business trends include discussions around age verification on adult content platforms, network issues affecting mobile phone calls but not data, the impact of demand for affordable technology, international trade disputes leading to plant closures, potential solutions for poor train phone signal, protectionist policies against cheap imports, AI research poaching by Meta, drone industry growth in military applications, legal battles over AI copyright, vaccine skepticism, discontinued Trump mobile phones, improvements for Google's lost items tracking, early Prime Day deals, AI-powered app creation, anticipation of future MacBook releases, a 'Social Network' sequel, efforts to open app stores by tech giants, FPV drone criticisms from Ukrainian war veterans, and Apptainer for Linux application containers.",
-                    "keywords": ["pornhub", "age", "checks", "uk", "three", "network", "calls", "data", "cheap", "gadgets", "demand", "food", "giant", "biofuel", "plant", "tariff", "deal", "fast", "tech", "warning", "meta", "recruiting", "blitz", "openai", "researchers", "indian", "drone", "startup", "raphe", "mphibr", "$100m", "military", "uav", "demand", "soars", "federal", "judge", "sides", "meta", "lawsuit", "ai", "models", "copyrighted", "books", "vaccines", "childhood", "rfk", "jr", "panel", "trump", "mobile", "claim", "made", "usa", "google", "find", "hub", "network", "tweak", "deals", "prime", "the", "verge", "meta", "ai", "copyright", "warning", "fair", "use", "anthropic", "apps", "claude", "ai", "chatbot", "engadget", "macbook", "2025", "aaron", "sorkin", "social", "network", "sequel", "us", "senators", "reintroduce", "bill", "open", "apple", "google", "app", "stores", "hacker", "news", "fpv", "drones", "ukrainian", "war", "veterans", "apptainer", "linux"],
-                    "trending_topics": ["adult content regulation", "network issues", "affordable technology demand", "trade disputes", "app store openness", "AI copyright battles", "drone industry growth", "vaccine skepticism", "discontinued tech products", "lost items tracking improvements", "early sale deals", "AI-powered app creation", "future laptop releases", "sequels to popular media", "fair use concerns"],
-                    "analysis_timestamp": "2025-06-26T07:24:00.983038"
-                },
-                "focus": "technology_and_business",
-                "headline_count": 24,
-                "sources_analyzed": ["BBC Technology", "Ars Technica", "Engadget", "TechCrunch", "Slashdot", "BBC Business", "The Verge", "Hacker News"],
-                "raw_headlines": [
-                    {
-                        "title": "Pornhub to introduce 'government approved' age checks in UK",
-                        "source": "BBC Technology",
-                        "category": "technology",
-                        "url": "https://www.bbc.com/news/articles/cr5v2lz5vl6o",
-                        "published": "Thu, 26 Jun 2025 09:56:58 GMT",
-                        "summary": "It is one of a number of porn sites which regulator Ofcom says will bring in tougher age verification for users."
-                    }
-                    // Note: Full headlines array would be included in real implementation
-                ]
-            };
-            displayAnalysisData(currentAnalysisData);
+        function showError(message) {
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById('analysisContent').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('modalTitle').textContent = '❌ Analysis Error';
+            
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.querySelector('p').textContent = message;
         }
 
         function displayAnalysisData(data) {
+            // Validate data structure
+            if (!data || !data.analysis) {
+                showError('Invalid analysis data format: missing analysis section');
+                return;
+            }
+
             // Hide loading message and show content
             document.getElementById('loadingMessage').style.display = 'none';
             document.getElementById('analysisContent').style.display = 'block';
             
-            // Update modal title
-            const timestamp = new Date(data.analysis.analysis_timestamp);
+            // Update modal title and date
+            const timestamp = data.analysis.analysis_timestamp ? 
+                new Date(data.analysis.analysis_timestamp) : new Date();
             const dateStr = timestamp.toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'long', 
@@ -212,47 +538,62 @@
             
             // Update summary
             const summaryDiv = document.getElementById('summaryContent');
-            summaryDiv.innerHTML = `<p>${data.analysis.summary}</p>`;
-            
-            // Create keyword frequency data for word cloud and table
-            const keywordFreq = {};
-            if (data.analysis.keywords) {
-                data.analysis.keywords.forEach(keyword => {
-                    keywordFreq[keyword] = (keywordFreq[keyword] || 0) + Math.floor(Math.random() * 20) + 5;
-                });
+            if (data.analysis.summary) {
+                summaryDiv.innerHTML = `<p>${data.analysis.summary}</p>`;
+            } else {
+                summaryDiv.innerHTML = '<p style="color: var(--neutral-500); font-style: italic;">No summary available for this analysis.</p>';
             }
             
-            // Create trend frequency data
-            const trendFreq = {};
-            if (data.analysis.trending_topics) {
-                data.analysis.trending_topics.forEach(trend => {
-                    trendFreq[trend] = Math.floor(Math.random() * 15) + 10;
-                });
+            // Process keywords if available
+            if (data.analysis.keywords && data.analysis.keywords.length > 0) {
+                const keywordFreq = calculateWordFrequency(data.analysis.keywords);
+                updateWordCloudStats('keywordStats', keywordFreq, 'keywords');
+                populateFrequencyTable('keywordTableBody', keywordFreq);
+                
+                setTimeout(() => {
+                    generateWordCloudInModal('keywordCloudModal', keywordFreq, 'keywords');
+                }, 300);
+            } else {
+                document.getElementById('keywordStats').innerHTML = '<em>No keywords available</em>';
+                document.getElementById('keywordTableBody').innerHTML = '<tr><td colspan="2" style="text-align: center; font-style: italic; color: var(--neutral-500);">No keyword data available</td></tr>';
+                document.getElementById('keywordCloudModal').innerHTML = '<div style="padding: 40px; text-align: center; color: #6b7280;">No keyword data available</div>';
             }
             
-            // Update word cloud stats
-            const keywordCount = Object.keys(keywordFreq).length;
-            const keywordTotal = Object.values(keywordFreq).reduce((a, b) => a + b, 0);
-            document.getElementById('keywordStats').innerHTML = `<strong>${keywordCount}</strong> unique keywords • <strong>${keywordTotal}</strong> total mentions`;
-            
-            const trendCount = Object.keys(trendFreq).length;
-            const trendTotal = Object.values(trendFreq).reduce((a, b) => a + b, 0);
-            document.getElementById('trendStats').innerHTML = `<strong>${trendCount}</strong> unique trends • <strong>${trendTotal}</strong> total mentions`;
-            
-            // Generate word clouds
-            setTimeout(() => {
-                generateWordCloudInModal('keywordCloudModal', keywordFreq, 'keywords');
-                generateWordCloudInModal('trendCloudModal', trendFreq, 'trends');
-            }, 300);
-            
-            // Populate tables
-            populateFrequencyTable('keywordTableBody', keywordFreq);
-            populateFrequencyTable('trendTableBody', trendFreq);
+            // Process trending topics if available
+            if (data.analysis.trending_topics && data.analysis.trending_topics.length > 0) {
+                const trendFreq = calculateWordFrequency(data.analysis.trending_topics);
+                updateWordCloudStats('trendStats', trendFreq, 'trends');
+                populateFrequencyTable('trendTableBody', trendFreq);
+                
+                setTimeout(() => {
+                    generateWordCloudInModal('trendCloudModal', trendFreq, 'trends');
+                }, 300);
+            } else {
+                document.getElementById('trendStats').innerHTML = '<em>No trending topics available</em>';
+                document.getElementById('trendTableBody').innerHTML = '<tr><td colspan="2" style="text-align: center; font-style: italic; color: var(--neutral-500);">No trending topics data available</td></tr>';
+                document.getElementById('trendCloudModal').innerHTML = '<div style="padding: 40px; text-align: center; color: #6b7280;">No trending topics data available</div>';
+            }
             
             // Display headlines if available
             if (data.raw_headlines && data.raw_headlines.length > 0) {
                 displayHeadlines(data.raw_headlines);
+            } else {
+                document.getElementById('headlinesList').innerHTML = '<div style="text-align: center; padding: 20px; color: var(--neutral-500); font-style: italic;">No headlines available for this analysis.</div>';
             }
+        }
+
+        function calculateWordFrequency(items) {
+            const frequency = {};
+            items.forEach(item => {
+                frequency[item] = (frequency[item] || 0) + 1;
+            });
+            return frequency;
+        }
+
+        function updateWordCloudStats(statsId, freqData, type) {
+            const count = Object.keys(freqData).length;
+            const total = Object.values(freqData).reduce((a, b) => a + b, 0);
+            document.getElementById(statsId).innerHTML = `<strong>${count}</strong> unique ${type} • <strong>${total}</strong> total mentions`;
         }
 
         function populateFrequencyTable(tableBodyId, freqData) {
@@ -261,38 +602,46 @@
                 .sort(([,a], [,b]) => b - a)
                 .slice(0, 20); // Top 20 entries
             
+            if (sortedEntries.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2" style="text-align: center; font-style: italic; color: var(--neutral-500);">No data available</td></tr>';
+                return;
+            }
+            
             tbody.innerHTML = sortedEntries.map(([term, freq]) => 
-                `<tr><td>${term}</td><td>${freq}</td></tr>`
+                `<tr><td>${escapeHtml(term)}</td><td>${freq}</td></tr>`
             ).join('');
         }
 
         function displayHeadlines(headlines) {
             const headlinesList = document.getElementById('headlinesList');
             headlinesList.innerHTML = headlines.map((headline, index) => `
-                <div style="background: var(--neutral-50); border-radius: var(--radius-md); padding: 20px; margin-bottom: 15px; border-left: 4px solid var(--accent-electric);">
-                    <h4 style="color: var(--primary-600); margin-bottom: 10px;">
-                        <a href="${headline.url}" target="_blank" style="text-decoration: none; color: inherit;">
-                            ${headline.title}
-                        </a>
+                <div class="headline-item">
+                    <h4>
+                        ${headline.url ? 
+                            `<a href="${escapeHtml(headline.url)}" target="_blank">${escapeHtml(headline.title || 'Untitled')}</a>` :
+                            escapeHtml(headline.title || 'Untitled')
+                        }
                     </h4>
-                    <div style="color: var(--neutral-500); font-size: 0.9em; margin-bottom: 10px;">
-                        📰 ${headline.source} • 📅 ${new Date(headline.published).toLocaleDateString()}
-                    </div>
-                    <p style="color: var(--neutral-700); margin: 0;">${headline.summary}</p>
+                    ${headline.source || headline.published ? `
+                        <div class="headline-meta">
+                            ${headline.source ? `📰 ${escapeHtml(headline.source)}` : ''}
+                            ${headline.source && headline.published ? ' • ' : ''}
+                            ${headline.published ? `📅 ${new Date(headline.published).toLocaleDateString()}` : ''}
+                        </div>
+                    ` : ''}
+                    ${headline.summary ? `<p class="headline-summary">${escapeHtml(headline.summary)}</p>` : ''}
                 </div>
             `).join('');
         }
 
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         function closeModal() {
             window.close();
-        }
-
-        function setArticleFilter(filter) {
-            // Placeholder function for filter buttons
-        }
-
-        function setArticleSort(sort) {
-            // Placeholder function for sort buttons
         }
 
         function generateWordCloudInModal(containerId, wordData, type) {
@@ -307,9 +656,10 @@
             container.innerHTML = '';
 
             // Prepare data for D3 cloud
-            const words = Object.entries(wordData).slice(0, 50).map(([text, size]) => ({
+            const maxFreq = Math.max(...Object.values(wordData));
+            const words = Object.entries(wordData).slice(0, 50).map(([text, freq]) => ({
                 text: text,
-                size: Math.max(12, Math.min(40, size * 2))
+                size: Math.max(12, Math.min(40, (freq / maxFreq) * 40 + 12))
             }));
 
             // Set up dimensions for modal
