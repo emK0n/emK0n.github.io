@@ -745,6 +745,20 @@ code {
     color: var(--accent-electric);
 }
 
+.dark-mode .audio-player-container {
+    background: var(--neutral-800) !important;
+    border-color: var(--neutral-600) !important;
+}
+
+.dark-mode [id^="player-"] {
+    background: var(--neutral-800) !important;
+    border-color: var(--neutral-600) !important;
+}
+
+.dark-mode audio {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {

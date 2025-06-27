@@ -458,23 +458,31 @@
                     <h2>📥 Download MattGPT</h2>
                     
                     <div class="download-instructions">
-                        <h4>🚀 Installation Instructions</h4>
+                        <h4>🚀 Installation Instructions (NOTE: These are designed for Mac, your exact commands may differ)</h4>
                         <ol>
+                            <li><strong>This is not for the faint of heart! This is a proof of concept that it's possible to run a multi-agentic system, built and running for FREE on a local computer (even the LLM). It's not perfect but it works and it's a great way to learn. So step out of your comfort zone and have fun!</strong></li>
                             <li><strong>Download the Archive:</strong> Click the download button below to get the complete MattGPT source code archive.</li>
                             <li><strong>Extract Files:</strong> Unzip the <code>archive.zip</code> file to your preferred directory.</li>
-                            <li><strong>Install Dependencies:</strong> Navigate to the extracted folder and run <code>pip install -r requirements.txt</code> to install Python dependencies.</li>
-                            <li><strong>Configure Environment:</strong> Copy <code>.env.example</code> to <code>.env</code> and add your API keys for optimal functionality.</li>
-                            <li><strong>Initialize Database:</strong> Run <code>python init_db.py</code> to set up the SQLite database with the required schema.</li>
-                            <li><strong>Launch Application:</strong> Start the Flask server with <code>python app.py</code> and navigate to <code>http://localhost:5000</code>.</li>
-                            <li><strong>First Run Setup:</strong> Complete the initial configuration wizard to customize your research interests and preferences.</li>
+                            <li><strong>Install Python 3.12:</strong> Download from your preferred repo based on your operating system</li>
+                            <li><strong>Install Ollama:</strong> Visit Ollama website to find installer for your operating system.</li>
+                            <li><strong>Download your LLM:</strong> <code>ollama pull granite3.2:8b</code> MattGPT is already designed to use IBM's Granite 3.2:8b.</li>
+                            <li><strong>Configure Environment:</strong> In your working directory for this app, run <code>python3.12 -m venv .venv</code></li>
+                            <li><strong>Activate Your Environment:</strong> In your working directory for this app, run <code>. .venv/bin/activate</code></li>
+                            <li><strong>Install Dependencies:</strong> While in your environment, run <code>pip3 install -r requirements.txt</code> to install Python dependencies.</li>
+                            <li><strong>Install Additional Tools:</strong> FFMPEG for Podcast stitching, d3 for local word cloud creation</li>
+                            <li><strong>First Run:</strong> There is a script ready to go. Just type <code>./MattGPT.sh</code></li>
+                            <li><strong>Launch the UI:</strong> Open a web browser and type in: <code>http://localhost:5000</code></li>
+                            <li><strong>Change sources or Models:</strong> Edit the <code>sources_config.JSON</code>file and adjust anything you want!</li>
+
                         </ol>
                         
                         <h4>🔧 System Requirements</h4>
                         <ul style="margin-top: 15px; color: var(--neutral-700);">
-                            <li>Python 3.8+ with pip package manager</li>
-                            <li>4GB+ RAM for optimal LLM processing</li>
+                            <li>Python 3.12+ with pip package manager</li>
+                            <li>16GB+ RAM for optimal LLM processing</li>
                             <li>Internet connection for web search and API access</li>
-                            <li>Modern web browser with JavaScript enabled</li>
+                            <li>Modern web browser with JavaScript enabled (Chrome preferred)</li>
+                            <li>Lots of patience and a desire to learn</li>
                         </ul>
                         
                         <h4>🎯 Optional Features</h4>
@@ -492,8 +500,7 @@
                     <div style="background: var(--primary-50); border-radius: var(--radius-md); padding: 20px; margin-top: 30px; border-left: 4px solid var(--accent-neon);">
                         <h4 style="color: var(--primary-700); margin-bottom: 10px;">💡 Need Help?</h4>
                         <p style="color: var(--neutral-700); margin: 0;">
-                            Check the included <code>README.md</code> file for detailed setup instructions, troubleshooting tips, and configuration options. 
-                            The architecture documentation provides comprehensive technical details about the platform's capabilities.
+                            I strongly suggest, especially if you're learning, to have an assistant like Claude or ChatGPT that you can show errors, let them analyze files, and help you fix problems or make changes. It's an amazing helper, just don't let them do everything for you!
                         </p>
                     </div>
                 </div>
@@ -545,8 +552,7 @@
                             <p style="color: var(--neutral-600); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto;">
                                 Explore comprehensive technical documentation, workflow diagrams, interactive demonstrations, and detailed implementation guides for every component of the MattGPT platform.
                             </p>
-                            <a href="architecture.html" class="cta-button" target="_blank">🚀 Explore Platform</a>
-                                📖 Explore Technical Architecture
+                            <a href="architecture.html" class="cta-button" target="_blank">📖 Explore Technical Architecture</a>
                             </a>
                         </div>
                 </div>
@@ -585,18 +591,17 @@
         async function loadPodcasts() {
             const grid = document.getElementById('podcastGrid');
             window.podcastsLoaded = true;
-            
+
             try {
                 // Simulate API call to get podcast files
-                // In a real implementation, you'd have an endpoint that lists files in podcast/
                 const response = await fetch('/api/podcasts');
-                
+
                 if (!response.ok) {
                     throw new Error('Failed to load podcasts');
                 }
-                
+
                 const podcasts = await response.json();
-                
+
                 if (podcasts.length === 0) {
                     grid.innerHTML = `
                         <div class="empty-state">
@@ -606,180 +611,215 @@
                     `;
                     return;
                 }
-                
-                grid.innerHTML = podcasts.map(podcast => `
-                    <div class="podcast-item">
-                        <div class="item-title">
-                            🎙️ ${podcast.title}
-                        </div>
-                        <div class="item-meta">
-                            📅 ${podcast.date} • ⏱️ ${podcast.duration}
-                        </div>
-                        <div class="item-description">
-                            ${podcast.description}
-                        </div>
-                        <a href="podcast/${podcast.filename}" class="download-button" download>
-                            📥 Download (${podcast.size})
-                        </a>
+
+                // Create a simple list of available files (similar to week reviews)
+                grid.innerHTML = `
+                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            ${podcasts.map(podcast => `
+                                <li style="margin-bottom: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                        <span style="font-size: 1.5em;">🎙️</span>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: var(--primary-600);">${podcast.title}</div>
+                                            <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${podcast.date} • ${podcast.duration}</div>
+                                            <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">${podcast.description}</div>
+                                        </div>
+                                        <div style="display: flex; gap: 10px; align-items: center;">
+                                            <button onclick="togglePodcastPlayer('${podcast.filename}', this)"
+                                                    style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
+                                                    onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                                    onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
+                                                🎧 Listen
+                                            </button>
+                                            <a href="podcast/${podcast.filename}"
+                                               style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
+                                               onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                               onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
+                                               download>
+                                                📥 Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                        <audio controls style="width: 100%; max-width: 100%;">
+                                            <source src="podcast/${podcast.filename}" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+                                </li>
+                            `).join('')}
+                        </ul>
                     </div>
-                `).join('');
-                
+                `;
+
             } catch (error) {
                 // Fallback for development/demo
                 grid.innerHTML = `
-                    <div class="podcast-item">
-                        <div class="item-title">
-                            🎙️ Daily Tech Digest
-                        </div>
-                        <div class="item-meta">
-                            📅 2025-06-23
-                        </div>
-                        <div class="item-description">
-                            AI-generated discussion covering today's hottest tech topics, including breakthrough developments in machine learning and emerging startup innovations.
-                        </div>
-                        <a href="podcast/podcast_20250623.mp3" class="download-button" download>
-                            📥 Download (22.8 MB)
-                        </a>
-                    </div>
-                    
-                    <div class="podcast-item">
-                        <div class="item-title">
-                            🎙️ Research Roundup
-                        </div>
-                        <div class="item-meta">
-                            📅 2025-06-24
-                        </div>
-                        <div class="item-description">
-                            Weekly research highlights featuring cutting-edge papers from arXiv, industry insights, and trending discussion topics from the tech community.
-                        </div>
-                        <a href="podcast/podcast_20250624.mp3" class="download-button" download>
-                            📥 Download (20.3 MB)
-                        </a>
-                    </div>
-                    
-                    <div class="podcast-item">
-                        <div class="item-title">
-                            🎙️ Startup Spotlight
-                        </div>
-                        <div class="item-meta">
-                            📅 2025-06-25
-                        </div>
-                        <div class="item-description">
-                            Featured discussions about emerging startups, funding rounds, and innovative business models disrupting traditional industries.
-                        </div>
-                        <a href="podcast/podcast_20250625.mp3" class="download-button" download>
-                            📥 Download (16.3 MB)
-                        </a>
-                    </div>
+                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="font-size: 1.5em;">🎙️</span>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: var(--primary-600);">Daily Tech Digest - June 23, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-23 • 15:30 duration</div>
+                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">AI-generated discussion covering today's hottest tech topics, including breakthrough developments in machine learning.</div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <button onclick="togglePodcastPlayer('podcast_20250623.mp3', this)"
+                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
+                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
+                                            🎧 Listen
+                                        </button>
+                                        <a href="podcast/podcast_20250623.mp3"
+                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
+                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
+                                           download>
+                                            📥 Download
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="player-podcast20250623mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                    <audio controls style="width: 100%; max-width: 100%;">
+                                        <source src="podcast/podcast_20250623.mp3" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </li>
 
-                    <div class="podcast-item">
-                        <div class="item-title">
-                            🎙️ Startup Spotlight
-                        </div>
-                        <div class="item-meta">
-                            📅 2025-06-26
-                        </div>
-                        <div class="item-description">
-                            Quite a turn in today's topics as big news shifts to videos and content creation.
-                        </div>
-                        <a href="podcast/podcast_20250626.mp3" class="download-button" download>
-                            📥 Download (16.5 MB)
-                        </a>
+                            <li style="margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="font-size: 1.5em;">🎙️</span>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: var(--primary-600);">Research Roundup - June 24, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-24 • 18:45 duration</div>
+                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Weekly research highlights featuring cutting-edge papers from arXiv and industry insights.</div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <button onclick="togglePodcastPlayer('podcast_20250624.mp3', this)"
+                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
+                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
+                                            🎧 Listen
+                                        </button>
+                                        <a href="podcast/podcast_20250624.mp3"
+                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
+                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
+                                           download>
+                                            📥 Download
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="player-podcast20250624mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                    <audio controls style="width: 100%; max-width: 100%;">
+                                        <source src="podcast/podcast_20250624.mp3" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </li>
+
+                            <li style="margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="font-size: 1.5em;">🎙️</span>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: var(--primary-600);">Startup Spotlight - June 25, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-25 • 12:20 duration</div>
+                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Featured discussions about emerging startups and innovative business models.</div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <button onclick="togglePodcastPlayer('podcast_20250625.mp3', this)"
+                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
+                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
+                                            🎧 Listen
+                                        </button>
+                                        <a href="podcast/podcast_20250625.mp3"
+                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
+                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
+                                           download>
+                                            📥 Download
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="player-podcast20250625mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                    <audio controls style="width: 100%; max-width: 100%;">
+                                        <source src="podcast/podcast_20250625.mp3" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </li>
+
+                            <li style="margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="font-size: 1.5em;">🎙️</span>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: var(--primary-600);">Content Creation Focus - June 26, 2025</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-26 • 14:15 duration</div>
+                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Big news shifts to videos and content creation in today's topics.</div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <button onclick="togglePodcastPlayer('podcast_20250626.mp3', this)"
+                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
+                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
+                                            🎧 Listen
+                                        </button>
+                                        <a href="podcast/podcast_20250626.mp3"
+                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
+                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
+                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
+                                           download>
+                                            📥 Download
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="player-podcast20250626mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                    <audio controls style="width: 100%; max-width: 100%;">
+                                        <source src="podcast/podcast_20250626.mp3" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 `;
             }
         }
 
-        // Load week reviews from wir/ folder
-        async function loadWeekReviews() {
-            const grid = document.getElementById('reviewGrid');
-            window.reviewsLoaded = true;
-            
-            try {
-                // Simulate API call to get week review files
-                const response = await fetch('/api/week-reviews');
-                
-                if (!response.ok) {
-                    throw new Error('Failed to load reviews');
+        // Add this new function for the podcast player toggle:
+        function togglePodcastPlayer(filename, button) {
+            const playerId = 'player-' + filename.replace(/[^a-zA-Z0-9]/g, '');
+            const player = document.getElementById(playerId);
+
+            if (player.style.display === 'none' || player.style.display === '') {
+                player.style.display = 'block';
+                button.innerHTML = '⏹️ Hide';
+                button.style.background = 'var(--neutral-500)';
+
+                // Auto-play the audio when showing the player
+                const audio = player.querySelector('audio');
+                if (audio) {
+                    audio.play().catch(e => {
+                        console.log('Auto-play prevented by browser policy');
+                    });
                 }
-                
-                const reviews = await response.json();
-                
-                if (reviews.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📊</div>
-                            <p>No week reviews available yet. Analysis reports will appear here once generated!</p>
-                        </div>
-                    `;
-                    return;
+            } else {
+                player.style.display = 'none';
+                button.innerHTML = '🎧 Listen';
+                button.style.background = 'var(--accent-electric)';
+
+                // Pause the audio when hiding the player
+                const audio = player.querySelector('audio');
+                if (audio) {
+                    audio.pause();
                 }
-                
-                grid.innerHTML = reviews.map(review => `
-                    <div class="review-item">
-                        <div class="item-title">
-                            📊 ${review.title}
-                        </div>
-                        <div class="item-meta">
-                            📅 ${review.weekRange} • 🏷️ ${review.topicsCount} topics analyzed
-                        </div>
-                        <div class="item-description">
-                            ${review.summary}
-                        </div>
-                        <a href="wir/${review.filename}" class="download-button" download>
-                            📄 View Report
-                        </a>
-                    </div>
-                `).join('');
-                
-            } catch (error) {
-                // Fallback for development/demo
-                grid.innerHTML = `
-                    <div class="review-item">
-                        <div class="item-title">
-                            📊 Week of June 21-27, 2025
-                        </div>
-                        <div class="item-meta">
-                            📅 Jun 21-27, 2025 • 🏷️ 47 topics analyzed
-                        </div>
-                        <div class="item-description">
-                            Comprehensive analysis of this week's trending topics including AI developments, startup funding, and emerging technologies. Features interactive word clouds and trend insights.
-                        </div>
-                        <a href="wir/week_review_2025-06-27.json" class="download-button" download>
-                            📄 View Report
-                        </a>
-                    </div>
-                    
-                    <div class="review-item">
-                        <div class="item-title">
-                            📊 Week of June 14-20, 2025
-                        </div>
-                        <div class="item-meta">
-                            📅 Jun 14-20, 2025 • 🏷️ 52 topics analyzed
-                        </div>
-                        <div class="item-description">
-                            Weekly technology roundup covering breakthrough research papers, market analysis, and industry developments with LLM-powered insights and trend consolidation.
-                        </div>
-                        <a href="wir/week_review_2025-06-20.json" class="download-button" download>
-                            📄 View Report
-                        </a>
-                    </div>
-                    
-                    <div class="review-item">
-                        <div class="item-title">
-                            📊 Week of June 7-13, 2025
-                        </div>
-                        <div class="item-meta">
-                            📅 Jun 7-13, 2025 • 🏷️ 38 topics analyzed
-                        </div>
-                        <div class="item-description">
-                            Deep dive into emerging tech trends, research highlights, and market movements with advanced keyword frequency analysis and topic clustering.
-                        </div>
-                        <a href="wir/week_review_2025-06-13.json" class="download-button" download>
-                            📄 View Report
-                        </a>
-                    </div>
-                `;
             }
         }
 
@@ -840,7 +880,7 @@
                         <ul style="list-style: none; padding: 0; margin: 0;">
                             <li style="margin-bottom: 15px;">
                                 <a href="javascript:void(0)"
-                                   onclick="openWeekReview('current_events_analysis_20250626.json')"
+                                   onclick="openWeekReview('week_review_2025-06-26.json')"
                                    style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
@@ -853,7 +893,7 @@
                             </li>
                             <li style="margin-bottom: 15px;">
                                 <a href="javascript:void(0)"
-                                   onclick="openWeekReview('current_events_analysis_20250625.json')"
+                                   onclick="openWeekReview('week_review_2025-06-25.json')"
                                    style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
@@ -866,7 +906,7 @@
                             </li>
                             <li style="margin-bottom: 15px;">
                                 <a href="javascript:void(0)"
-                                   onclick="openWeekReview('current_events_analysis_20250624.json')"
+                                   onclick="openWeekReview('week_review_2025-06-24.json')"
                                    style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
@@ -880,7 +920,7 @@
                             <!-- Date: 20250623 -->
                             <li style="margin-bottom: 15px;">
                                 <a href="javascript:void(0)"
-                                   onclick="openWeekReview('current_events_analysis_20250623.json')"
+                                   onclick="openWeekReview('week_review_2025-06-23.json')"
                                    style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
