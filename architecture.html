@@ -440,4 +440,221 @@
                         <div class="component-title">👥 Customer Management</div>
                         <div class="expandable-content">
                             <strong>Advanced Customer Intelligence:</strong>
-                            
+                            <ul>
+                                <li>CSV-based customer database integration</li>
+                                <li>Fuzzy matching for customer identification</li>
+                                <li>Cluster-based organization</li>
+                                <li>Research insights generation</li>
+                                <li>Battle card creation capabilities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECHNICAL DETAILS TAB -->
+        <div id="technical" class="tab-content">
+            <div class="section">
+                <h2>🏗️ Technical Implementation Details</h2>
+                
+                <h3>🔧 System Components</h3>
+                <div class="architecture-grid">
+                    <div class="component-card">
+                        <div class="component-title">🧠 AI Engine</div>
+                        <div class="component-description">
+                            IBM Granite 3.2:8b model via Ollama providing local AI capabilities without cloud dependencies.
+                        </div>
+                        <ul class="methods-list">
+                            <li>generate_summary()</li>
+                            <li>analyze_relevance()</li>
+                            <li>extract_keywords()</li>
+                            <li>chat_completion()</li>
+                        </ul>
+                    </div>
+
+                    <div class="component-card">
+                        <div class="component-title">📊 Content Curator</div>
+                        <div class="component-description">
+                            Multi-source content collection and curation with RSS feeds, web scraping, and AI analysis.
+                        </div>
+                        <ul class="methods-list">
+                            <li>collect_rss_feeds()</li>
+                            <li>scrape_article_content()</li>
+                            <li>analyze_trending_topics()</li>
+                            <li>calculate_relevance_scores()</li>
+                        </ul>
+                    </div>
+
+                    <div class="component-card">
+                        <div class="component-title">🎙️ Podcast Generator</div>
+                        <div class="component-description">
+                            AI-powered podcast creation with Edge-TTS voice synthesis and intelligent script generation.
+                        </div>
+                        <ul class="methods-list">
+                            <li>generate_dialogue_script()</li>
+                            <li>synthesize_voice_audio()</li>
+                            <li>assemble_podcast_segments()</li>
+                            <li>create_metadata()</li>
+                        </ul>
+                    </div>
+
+                    <div class="component-card">
+                        <div class="component-title">📈 Analytics Engine</div>
+                        <div class="component-description">
+                            D3.js-powered visualizations with keyword analysis and trend detection capabilities.
+                        </div>
+                        <ul class="methods-list">
+                            <li>generate_word_clouds()</li>
+                            <li>analyze_keyword_frequency()</li>
+                            <li>create_trend_visualizations()</li>
+                            <li>export_analysis_reports()</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🔄 Data Flow Architecture</h3>
+                <div class="flow-diagram">
+                    <div class="workflow-step start">
+                        <div class="step-title">Data Ingestion</div>
+                        <div class="step-description">RSS feeds, web scraping, PDF processing, and user inputs</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-title">Content Processing</div>
+                        <div class="step-description">AI analysis, summarization, keyword extraction, and relevance scoring</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-title">Data Storage</div>
+                        <div class="step-description">SQLite database with session management and cache optimization</div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="step-title">Visualization & Output</div>
+                        <div class="step-description">D3.js visualizations, podcast generation, and interactive reports</div>
+                    </div>
+
+                    <div class="workflow-step end">
+                        <div class="step-title">User Interface</div>
+                        <div class="step-description">Responsive web interface with real-time updates and progress tracking</div>
+                    </div>
+                </div>
+
+                <h3>🔌 API Architecture</h3>
+                <div class="endpoint-box">
+                    <span class="method-badge method-get">GET</span>
+                    <strong>/api/health</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">System health check and component status</div>
+                </div>
+
+                <div class="endpoint-box">
+                    <span class="method-badge method-post">POST</span>
+                    <strong>/api/chat/message</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Send message to enhanced chat system</div>
+                </div>
+
+                <div class="endpoint-box">
+                    <span class="method-badge method-get">GET</span>
+                    <strong>/api/articles/search</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Search articles database with filters</div>
+                </div>
+
+                <div class="endpoint-box">
+                    <span class="method-badge method-post">POST</span>
+                    <strong>/api/analysis/url</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Analyze URL content with AI processing</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab management function
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Chain animation function
+        function startChainAnimation() {
+            const steps = document.querySelectorAll('.chain-step');
+            
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            // Animate each step
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    // Mark previous steps as completed
+                    for (let i = 0; i < index; i++) {
+                        steps[i].classList.remove('active');
+                        steps[i].classList.add('completed');
+                    }
+                    
+                    // Mark current step as active
+                    step.classList.add('active');
+                    
+                    // If it's the last step, mark it as completed after a delay
+                    if (index === steps.length - 1) {
+                        setTimeout(() => {
+                            step.classList.remove('active');
+                            step.classList.add('completed');
+                        }, 2000);
+                    }
+                }, index * 1000);
+            });
+        }
+
+        // Toggle expandable sections
+        function toggleExpand(element) {
+            const content = element.querySelector('.expandable-content');
+            if (content) {
+                content.classList.toggle('show');
+            }
+        }
+
+        // Dark mode toggle functionality
+        const darkToggle = document.getElementById('darkmode-toggle');
+        const darkIcon = document.getElementById('darkmode-icon');
+        
+        function setDarkMode(on) {
+            document.body.classList.toggle('dark-mode', on);
+            darkIcon.textContent = on ? '☀️' : '🌙';
+        }
+        
+        // Load dark mode preference
+        const darkPref = localStorage.getItem('dark-mode') === 'true';
+        setDarkMode(darkPref);
+        
+        darkToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            darkIcon.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('dark-mode', isDark);
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('MattGPT Architecture Documentation initialized');
+        });
+    </script>
+</body>
+</html>
