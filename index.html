@@ -72,7 +72,7 @@
             box-shadow: 0 12px 35px rgba(6, 182, 212, 0.4);
         }
 
-        .video-container {
+        .video-container, .feature-container {
             background: var(--neutral-0);
             border-radius: var(--radius-lg);
             padding: 30px;
@@ -82,7 +82,7 @@
             text-align: center;
         }
 
-        .video-container h3 {
+        .video-container h3, .feature-container h3 {
             color: var(--primary-600);
             margin-bottom: 20px;
             font-size: 1.5em;
@@ -108,11 +108,11 @@
             opacity: 0.7;
         }
 
-        .video-placeholder video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .image-container img {
+            max-width: 100%;
+            height: auto;
             border-radius: var(--radius-md);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .main-content {
@@ -180,6 +180,68 @@
             margin-bottom: 15px;
         }
 
+        /* Fixed Podcast Controls Styling */
+        .podcast-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .podcast-listen-btn, .podcast-download-btn {
+            background: var(--primary-600);
+            color: var(--neutral-0);
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            height: 40px;
+            box-sizing: border-box;
+        }
+
+        .podcast-listen-btn:hover, .podcast-download-btn:hover {
+            background: var(--primary-700);
+            transform: translateY(-2px);
+        }
+
+        .podcast-listen-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .podcast-download-btn {
+            background: var(--accent-neon);
+        }
+
+        .podcast-download-btn:hover {
+            background: #059669;
+        }
+
+        /* Audio Player Styling */
+        .podcast-player {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--neutral-200);
+            display: none;
+        }
+
+        .podcast-player audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+        }
+
         .download-button {
             background: var(--primary-600);
             color: var(--neutral-0);
@@ -226,7 +288,7 @@
             font-size: 1.2em;
         }
 
-        .download-instructions ol {
+        .download-instructions ol, .download-instructions ul {
             color: var(--neutral-700);
             line-height: 1.6;
             padding-left: 20px;
@@ -305,12 +367,38 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Status Message Styles */
+        .status-message {
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #ecfdf5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .status-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .status-info {
+            background: #eff6ff;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+
         /* Dark mode overrides */
-        .dark-mode .video-container {
+        .dark-mode .video-container, .dark-mode .feature-container {
             background: var(--neutral-800);
         }
 
-        .dark-mode .video-container h3 {
+        .dark-mode .video-container h3, .dark-mode .feature-container h3 {
             color: var(--accent-electric);
         }
 
@@ -332,6 +420,19 @@
             color: var(--neutral-200);
         }
 
+        .dark-mode .podcast-player {
+            background: var(--neutral-800);
+            border-color: var(--neutral-600);
+        }
+
+        .dark-mode .podcast-listen-btn, .dark-mode .podcast-download-btn {
+            background: var(--accent-electric);
+        }
+
+        .dark-mode .podcast-listen-btn:hover, .dark-mode .podcast-download-btn:hover {
+            background: var(--primary-700);
+        }
+
         .dark-mode .download-instructions {
             background: var(--neutral-800);
             color: var(--neutral-100);
@@ -342,7 +443,7 @@
             color: var(--accent-electric);
         }
 
-        .dark-mode .download-instructions ol {
+        .dark-mode .download-instructions ol, .dark-mode .download-instructions ul {
             color: var(--neutral-200);
         }
 
@@ -350,6 +451,21 @@
             background: var(--neutral-800);
             color: var(--neutral-100);
             border-color: var(--accent-neon);
+        }
+
+        .dark-mode .status-success {
+            background: var(--neutral-800);
+            color: var(--accent-neon);
+        }
+
+        .dark-mode .status-error {
+            background: var(--neutral-800);
+            color: var(--accent-error);
+        }
+
+        .dark-mode .status-info {
+            background: var(--neutral-800);
+            color: var(--accent-electric);
         }
 
         @media (max-width: 768px) {
@@ -363,6 +479,16 @@
             
             .main-content {
                 padding: 0 20px 40px;
+            }
+
+            .podcast-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .podcast-listen-btn, .podcast-download-btn {
+                width: 100%;
+                min-width: unset;
             }
         }
     </style>
@@ -382,19 +508,19 @@
 
         <!-- Navigation -->
         <div class="tab-nav">
-            <button class="tab-button active" onclick="showTab('home')">
+            <button class="tab-button active" onclick="switchTab('home', this)">
                 🏠 Home
             </button>
-            <button class="tab-button" onclick="showTab('podcasts')">
+            <button class="tab-button" onclick="switchTab('podcasts', this)">
                 🎙️ Podcasts
             </button>
-            <button class="tab-button" onclick="showTab('reviews')">
+            <button class="tab-button" onclick="switchTab('reviews', this)">
                 📊 Week in Review
             </button>
-            <button class="tab-button" onclick="showTab('download')">
+            <button class="tab-button" onclick="switchTab('download', this)">
                 📥 Download
             </button>
-            <button class="tab-button" onclick="showTab('architecture')">
+            <button class="tab-button" onclick="switchTab('architecture', this)">
                 🏗️ Architecture
             </button>
         </div>
@@ -409,11 +535,11 @@
             </div>
             
             <div class="main-content">
-                <div class="video-container">
+                <div class="feature-container">
                     <h3>MattGPT: Local Agentic AI Research Platform</h3>
-                         <div class="image-container" id="imageContainer">
-                            <img src="aboutMattGPT.png" alt="About MattGPT" id="aboutImage" style="max-width: 100%; height: auto;">
-                        </div>
+                    <div class="image-container" id="imageContainer">
+                        <img src="aboutMattGPT.png" alt="About MattGPT" id="aboutImage">
+                    </div>
                     <p style="color: var(--neutral-600); font-size: 0.9em;">Free and open-source research automation powered by local AI models</p>
                 </div>
 
@@ -494,6 +620,11 @@
                         Discover our AI-generated podcasts featuring Edge-TTS dual voice synthesis (Alex and Sam personas) discussing trending technology and business topics from current events analysis.
                     </p>
                     
+                    <div id="podcastStatus" class="status-message status-info" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <span style="margin-left: 10px;">Loading podcasts...</span>
+                    </div>
+                    
                     <div id="podcastGrid" class="podcast-grid">
                         <!-- Podcasts will be loaded here -->
                     </div>
@@ -510,9 +641,13 @@
                         Explore comprehensive weekly analyses with LLM-powered keyword consolidation, trend analysis, and interactive D3.js word cloud visualizations from 7 days of current events data.
                     </p>
                     
-                    <div id="reviewGrid" class="review-grid">
+                    <div id="reviewStatus" class="status-message status-info" style="display: none;">
                         <div class="loading-spinner"></div>
-                        <span style="margin-left: 10px; color: var(--neutral-600);">Loading week reviews...</span>
+                        <span style="margin-left: 10px;">Loading week reviews...</span>
+                    </div>
+                    
+                    <div id="reviewGrid" class="review-grid">
+                        <!-- Reviews will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -606,70 +741,109 @@
             <div class="main-content">
                 <div class="section">
                     <h2>🔧 Technical Architecture Overview</h2>
-                        <p style="color: var(--neutral-600); margin-bottom: 30px;">
-                            MattGPT implements a sophisticated Two-Track Architecture enabling both complex automated workflows and conversational interactions, all powered by local AI models.
+                    <p style="color: var(--neutral-600); margin-bottom: 30px;">
+                        MattGPT implements a sophisticated Two-Track Architecture enabling both complex automated workflows and conversational interactions, all powered by local AI models.
+                    </p>
+
+                    <div class="workflow-grid">
+                        <div class="workflow-card">
+                            <div class="workflow-title">🏗️ Two-Track Architecture</div>
+                            <div class="workflow-description">
+                                Separate operational tracks: Chain Operations Manager for complex workflows, Enhanced Chat Manager for conversational interactions with proper separation of concerns.
+                            </div>
+                        </div>
+
+                        <div class="workflow-card">
+                            <div class="workflow-title">🤖 Local AI Integration</div>
+                            <div class="workflow-description">
+                                IBM Granite 3.2:8b model via Ollama for content analysis, summarization, relevance scoring, and conversational responses without cloud dependencies.
+                            </div>
+                        </div>
+
+                        <div class="workflow-card">
+                            <div class="workflow-title">🔄 Chain Operations</div>
+                            <div class="workflow-description">
+                                Direct orchestration of complex workflows including current events analysis, week review generation, and podcast creation with progress tracking.
+                            </div>
+                        </div>
+
+                        <div class="workflow-card">
+                            <div class="workflow-title">💬 Enhanced Chat System</div>
+                            <div class="workflow-description">
+                                Stateful conversational interface with session management, article context, customer database queries, and URL analysis capabilities.
+                            </div>
+                        </div>
+
+                        <div class="workflow-card">
+                            <div class="workflow-title">📊 Content Processing</div>
+                            <div class="workflow-description">
+                                Multi-source RSS collection, web scraping, PDF processing, and AI-powered content curation with relevance scoring and hot topics detection.
+                            </div>
+                        </div>
+
+                        <div class="workflow-card">
+                            <div class="workflow-title">🎙️ Audio Generation</div>
+                            <div class="workflow-description">
+                                Edge-TTS integration for high-quality voice synthesis with dual speaker personalities and intelligent dialogue script generation.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 40px 0; padding: 30px; background: var(--gradient-surface); border-radius: var(--radius-lg); border: 2px solid var(--accent-electric);">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🏗️</div>
+                        <h3 style="color: var(--primary-600); margin-bottom: 15px;">Deep Technical Documentation</h3>
+                        <p style="color: var(--neutral-600); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Explore comprehensive technical documentation including system architecture diagrams, API endpoints, database schemas, and implementation details for every component.
                         </p>
-
-                        <div class="workflow-grid">
-                            <div class="workflow-card">
-                                <div class="workflow-title">🏗️ Two-Track Architecture</div>
-                                <div class="workflow-description">
-                                    Separate operational tracks: Chain Operations Manager for complex workflows, Enhanced Chat Manager for conversational interactions with proper separation of concerns.
-                                </div>
-                            </div>
-
-                            <div class="workflow-card">
-                                <div class="workflow-title">🤖 Local AI Integration</div>
-                                <div class="workflow-description">
-                                    IBM Granite 3.2:8b model via Ollama for content analysis, summarization, relevance scoring, and conversational responses without cloud dependencies.
-                                </div>
-                            </div>
-
-                            <div class="workflow-card">
-                                <div class="workflow-title">🔄 Chain Operations</div>
-                                <div class="workflow-description">
-                                    Direct orchestration of complex workflows including current events analysis, week review generation, and podcast creation with progress tracking.
-                                </div>
-                            </div>
-
-                            <div class="workflow-card">
-                                <div class="workflow-title">💬 Enhanced Chat System</div>
-                                <div class="workflow-description">
-                                    Stateful conversational interface with session management, article context, customer database queries, and URL analysis capabilities.
-                                </div>
-                            </div>
-
-                            <div class="workflow-card">
-                                <div class="workflow-title">📊 Content Processing</div>
-                                <div class="workflow-description">
-                                    Multi-source RSS collection, web scraping, PDF processing, and AI-powered content curation with relevance scoring and hot topics detection.
-                                </div>
-                            </div>
-
-                            <div class="workflow-card">
-                                <div class="workflow-title">🎙️ Audio Generation</div>
-                                <div class="workflow-description">
-                                    Edge-TTS integration for high-quality voice synthesis with dual speaker personalities and intelligent dialogue script generation.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="text-align: center; margin: 40px 0; padding: 30px; background: var(--gradient-surface); border-radius: var(--radius-lg); border: 2px solid var(--accent-electric);">
-                            <div style="font-size: 3em; margin-bottom: 15px;">🏗️</div>
-                            <h3 style="color: var(--primary-600); margin-bottom: 15px;">Deep Technical Documentation</h3>
-                            <p style="color: var(--neutral-600); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                                Explore comprehensive technical documentation including system architecture diagrams, API endpoints, database schemas, and implementation details for every component.
-                            </p>
-                            <a href="architecture.html" class="cta-button" target="_blank">📖 View Full Architecture Documentation</a>
-                        </div>
+                        <a href="architecture.html" class="cta-button" target="_blank">📖 View Full Architecture Documentation</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Tab management
-        function showTab(tabName) {
+        // Application State
+        const AppState = {
+            currentTab: 'home',
+            loadedTabs: new Set(['home']),
+            isDarkMode: localStorage.getItem('dark-mode') === 'true'
+        };
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('MattGPT Homepage initialized - Two-Track Architecture');
+            initializeDarkMode();
+        });
+
+        // Dark Mode Management
+        function initializeDarkMode() {
+            const darkToggle = document.getElementById('darkmode-toggle');
+            const darkIcon = document.getElementById('darkmode-icon');
+            
+            // Set initial dark mode state
+            setDarkMode(AppState.isDarkMode);
+            
+            darkToggle.addEventListener('click', () => {
+                AppState.isDarkMode = !AppState.isDarkMode;
+                setDarkMode(AppState.isDarkMode);
+                localStorage.setItem('dark-mode', AppState.isDarkMode);
+            });
+        }
+
+        function setDarkMode(isDark) {
+            document.body.classList.toggle('dark-mode', isDark);
+            const darkIcon = document.getElementById('darkmode-icon');
+            if (darkIcon) {
+                darkIcon.textContent = isDark ? '☀️' : '🌙';
+            }
+        }
+
+        // Tab Management
+        function switchTab(tabName, buttonElement) {
+            // Update state
+            AppState.currentTab = tabName;
+            
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
@@ -681,86 +855,122 @@
             });
             
             // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
             
             // Add active class to clicked button
-            event.target.classList.add('active');
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
             
-            // Load content for specific tabs
-            if (tabName === 'podcasts' && !window.podcastsLoaded) {
-                loadPodcasts();
-            } else if (tabName === 'reviews' && !window.reviewsLoaded) {
-                loadWeekReviews();
+            // Load content for specific tabs if not already loaded
+            if (!AppState.loadedTabs.has(tabName)) {
+                loadTabContent(tabName);
+                AppState.loadedTabs.add(tabName);
             }
         }
 
-        // Load specific podcast files
-        async function loadPodcasts() {
-            const grid = document.getElementById('podcastGrid');
-            window.podcastsLoaded = true;
+        // Content Loading
+        function loadTabContent(tabName) {
+            switch (tabName) {
+                case 'podcasts':
+                    loadPodcastsContent();
+                    break;
+                case 'reviews':
+                    loadWeekReviewsContent();
+                    break;
+                default:
+                    console.log(`No special loading required for tab: ${tabName}`);
+            }
+        }
 
+        // FIXED Podcast Management
+        async function loadPodcastsContent() {
+            const grid = document.getElementById('podcastGrid');
+            const status = document.getElementById('podcastStatus');
+            
+            // Show loading status
+            showStatusMessage(status, 'info', 'Loading podcasts...');
+            
             try {
-                // Define the specific podcast files we want to load
+                // Define available podcast files - CORRECTED PATHS
                 const podcastFiles = ['podcast_20250727', 'podcast_20250728'];
                 const podcasts = [];
 
                 // Load metadata for each podcast
                 for (const filename of podcastFiles) {
                     try {
+                        console.log(`Attempting to load: podcast/${filename}.txt`);
                         const response = await fetch(`podcast/${filename}.txt`);
                         if (response.ok) {
                             const content = await response.text();
-                            const lines = content.split('\n');
-                            
-                            // Parse metadata from txt file
-                            const podcast = {
-                                filename: filename,
-                                title: lines[0]?.replace('Title: ', '').replace(/^"|"$/g, '') || 'Daily Podcast',
-                                description: lines[1]?.replace('Description: ', '') || '',
-                                duration: lines[2]?.replace('Length: ', '') || '',
-                                date: lines[3]?.replace('Date: ', '') || ''
-                            };
-                            
+                            console.log(`Successfully loaded ${filename}.txt`);
+                            const podcast = parsePodcastMetadata(content, filename);
                             podcasts.push(podcast);
+                        } else {
+                            console.log(`Failed to load ${filename}.txt - Status: ${response.status}`);
                         }
                     } catch (error) {
-                        console.error(`Failed to load ${filename}:`, error);
+                        console.log(`Error loading ${filename}:`, error);
                     }
                 }
 
+                // Hide status message
+                hideStatusMessage(status);
+
                 if (podcasts.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">🎙️</div>
-                            <p>No podcasts available yet. Use the Daily Podcast button to generate AI-powered content!</p>
-                        </div>
-                    `;
+                    console.log('No podcasts found, showing empty state');
+                    grid.innerHTML = createEmptyState('🎙️', 'No podcasts available yet. Use the Daily Podcast button to generate AI-powered content!');
                     return;
                 }
 
+                console.log(`Loaded ${podcasts.length} podcasts`);
                 // Create podcast list
                 grid.innerHTML = createPodcastList(podcasts);
 
             } catch (error) {
                 console.error('Error loading podcasts:', error);
+                showStatusMessage(status, 'error', 'Failed to load podcasts. Please try again later.');
                 grid.innerHTML = createDemoPodcastList();
             }
+        }
+
+        function parsePodcastMetadata(content, filename) {
+            const lines = content.split('\n').map(line => line.trim());
+            
+            return {
+                filename: filename,
+                title: extractMetadataValue(lines, 'Title') || 'Daily Podcast',
+                description: extractMetadataValue(lines, 'Description') || 'AI-generated podcast discussing current events',
+                duration: extractMetadataValue(lines, 'Length') || '',
+                date: extractMetadataValue(lines, 'Date') || ''
+            };
+        }
+
+        function extractMetadataValue(lines, key) {
+            const line = lines.find(line => line.startsWith(`${key}:`));
+            if (line) {
+                return line.replace(`${key}:`, '').replace(/^"|"$/g, '').trim();
+            }
+            return '';
         }
 
         function createPodcastList(podcasts) {
             return podcasts.map(podcast => `
                 <div class="podcast-item">
                     <div class="item-title">
-                        🎙️ ${podcast.title}
+                        🎙️ ${escapeHtml(podcast.title)}
                     </div>
                     <div class="item-meta">
-                        ${podcast.date} • ${podcast.duration}
+                        ${podcast.date} ${podcast.duration ? `• ${podcast.duration}` : ''}
                     </div>
                     <div class="item-description">
-                        ${podcast.description}
+                        ${escapeHtml(podcast.description)}
                     </div>
                     <div class="podcast-controls">
-                        <button onclick="togglePodcastPlayer('${podcast.filename}.mp3', this)" 
+                        <button onclick="togglePodcastPlayer('${podcast.filename}', this)" 
                                 class="podcast-listen-btn" 
                                 data-audio-file="${podcast.filename}.mp3">
                             🎧 Listen
@@ -771,12 +981,10 @@
                             📥 Download
                         </a>
                     </div>
-                    <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" 
-                         class="podcast-player" 
-                         style="display: none;">
-                        <audio controls style="width: 100%; max-width: 100%;">
+                    <div id="player-${sanitizeId(podcast.filename)}" 
+                         class="podcast-player">
+                        <audio controls preload="metadata">
                             <source src="podcast/${podcast.filename}.mp3" type="audio/mpeg">
-                            <source src="podcast/${podcast.filename}.mp3" type="audio/mp3">
                             Your browser does not support the audio element.
                         </audio>
                     </div>
@@ -797,9 +1005,9 @@
             `;
         }
 
-        // Podcast player toggle function
+        // FIXED Podcast Player Management
         function togglePodcastPlayer(filename, button) {
-            const playerId = 'player-' + filename.replace(/[^a-zA-Z0-9]/g, '');
+            const playerId = 'player-' + sanitizeId(filename);
             const player = document.getElementById(playerId);
 
             if (!player) {
@@ -808,73 +1016,89 @@
             }
 
             if (player.style.display === 'none' || player.style.display === '') {
-                player.style.display = 'block';
-                button.innerHTML = '⏹️ Hide';
-                button.style.background = 'var(--neutral-500)';
-
-                const audio = player.querySelector('audio');
-                if (audio) {
-                    button.innerHTML = '⏳ Loading...';
-                    button.disabled = true;
-
-                    audio.addEventListener('loadstart', () => {
-                        console.log('Audio loading started');
-                    });
-
-                    audio.addEventListener('canplay', () => {
-                        console.log('Audio can start playing');
-                        button.innerHTML = '⏹️ Hide';
-                        button.disabled = false;
-                    });
-
-                    audio.addEventListener('error', (e) => {
-                        console.error('Audio loading error:', e);
-                        button.innerHTML = '❌ Error';
-                        button.disabled = false;
-                    });
-
-                    audio.load();
-                    audio.play().catch(e => {
-                        console.log('Auto-play prevented by browser policy');
-                        button.innerHTML = '⏹️ Hide';
-                        button.disabled = false;
-                    });
-                }
+                showAudioPlayer(player, button, filename);
             } else {
-                player.style.display = 'none';
-                button.innerHTML = '🎧 Listen';
-                button.style.background = 'var(--accent-electric)';
-
-                const audio = player.querySelector('audio');
-                if (audio) {
-                    audio.pause();
-                }
+                hideAudioPlayer(player, button);
             }
         }
 
-        // Load week reviews
-        async function loadWeekReviews() {
+        function showAudioPlayer(player, button, filename) {
+            player.style.display = 'block';
+            button.innerHTML = '⏹️ Hide';
+            button.style.background = 'var(--neutral-500)';
+
+            const audio = player.querySelector('audio');
+            if (audio) {
+                // Set up error handling
+                audio.onerror = function(e) {
+                    console.error('Audio loading error:', e);
+                    button.innerHTML = '❌ Error';
+                    button.style.background = 'var(--accent-error)';
+                };
+
+                audio.onloadstart = function() {
+                    button.innerHTML = '⏳ Loading...';
+                    button.disabled = true;
+                };
+
+                audio.oncanplay = function() {
+                    button.innerHTML = '⏹️ Hide';
+                    button.disabled = false;
+                    button.style.background = 'var(--neutral-500)';
+                };
+
+                // Attempt to load the audio
+                audio.load();
+                
+                // Optional: Attempt to play (may be blocked by browser policy)
+                audio.play().catch(e => {
+                    console.log('Auto-play prevented by browser policy');
+                });
+            }
+        }
+
+        function hideAudioPlayer(player, button) {
+            player.style.display = 'none';
+            button.innerHTML = '🎧 Listen';
+            button.style.background = 'var(--primary-600)';
+            button.disabled = false;
+
+            const audio = player.querySelector('audio');
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        // Week Reviews Management
+        async function loadWeekReviewsContent() {
             const grid = document.getElementById('reviewGrid');
-            window.reviewsLoaded = true;
+            const status = document.getElementById('reviewStatus');
+            
+            // Show loading status
+            showStatusMessage(status, 'info', 'Loading week reviews...');
 
             try {
+                // Try to fetch from API first
                 const response = await fetch('/api/week-reviews');
-                if (!response.ok) throw new Error('Failed to load reviews');
+                
+                if (response.ok) {
+                    const reviews = await response.json();
+                    hideStatusMessage(status);
+                    
+                    if (reviews.length === 0) {
+                        grid.innerHTML = createEmptyState('📊', 'No week reviews available yet. Use the "Week in Review" button to generate comprehensive weekly analysis!');
+                        return;
+                    }
 
-                const reviews = await response.json();
-                if (reviews.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📊</div>
-                            <p>No week reviews available yet. Use the "Week in Review" button to generate comprehensive weekly analysis!</p>
-                        </div>
-                    `;
-                    return;
+                    grid.innerHTML = createWeekReviewList(reviews);
+                } else {
+                    throw new Error('API not available');
                 }
 
-                grid.innerHTML = createWeekReviewList(reviews);
-
             } catch (error) {
+                console.log('Week reviews API not available, showing demo content');
+                hideStatusMessage(status);
                 grid.innerHTML = createDemoWeekReviewList();
             }
         }
@@ -886,14 +1110,12 @@
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         ${reviews.map(review => `
                             <li style="margin-bottom: 15px;">
-                                <a href="javascript:void(0)" onclick="openWeekReview('${review.filename}')" 
-                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                <a href="javascript:void(0)" onclick="openWeekReview('${escapeHtml(review.filename)}')" 
+                                   class="review-link">
                                     <span style="font-size: 1.5em;">📊</span>
                                     <div>
-                                        <div style="font-weight: 600; color: var(--primary-600);">${review.title}</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${review.date} • ${review.topicsCount} topics analyzed</div>
+                                        <div style="font-weight: 600; color: var(--primary-600);">${escapeHtml(review.title)}</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${escapeHtml(review.date)} • ${review.topicsCount} topics analyzed</div>
                                     </div>
                                 </a>
                             </li>
@@ -916,35 +1138,47 @@
             `;
         }
 
-        // Function to open week review
         function openWeekReview(filename) {
             const url = `week_review_display.html?file=${encodeURIComponent(filename)}`;
             window.open(url, '_blank');
         }
 
-        // Dark mode toggle
-        const darkToggle = document.getElementById('darkmode-toggle');
-        const darkIcon = document.getElementById('darkmode-icon');
-        
-        function setDarkMode(on) {
-            document.body.classList.toggle('dark-mode', on);
-            darkIcon.textContent = on ? '☀️' : '🌙';
+        // Utility Functions
+        function showStatusMessage(element, type, message) {
+            if (!element) return;
+            
+            element.className = `status-message status-${type}`;
+            element.innerHTML = type === 'info' ? 
+                `<div class="loading-spinner"></div><span style="margin-left: 10px;">${message}</span>` :
+                message;
+            element.style.display = 'block';
         }
-        
-        // Load preference
-        const darkPref = localStorage.getItem('dark-mode') === 'true';
-        setDarkMode(darkPref);
-        
-        darkToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-            darkIcon.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('dark-mode', isDark);
-        });
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('MattGPT Homepage initialized - Two-Track Architecture');
-        });
+        function hideStatusMessage(element) {
+            if (element) {
+                element.style.display = 'none';
+            }
+        }
+
+        function createEmptyState(icon, message) {
+            return `
+                <div class="empty-state">
+                    <div class="empty-state-icon">${icon}</div>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function sanitizeId(str) {
+            return str.replace(/[^a-zA-Z0-9]/g, '');
+        }
     </script>
 </body>
 </html>
