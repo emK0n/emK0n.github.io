@@ -782,4 +782,219 @@ code {
     .architecture-grid {
         grid-template-columns: 1fr;
     }
+    /* ===================================================================== */
+    /* PODCAST PLAYER STYLES - Add this to your existing styles.css file */
+    /* ===================================================================== */
+
+    /* Podcast Controls */
+    .podcast-controls {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        align-items: center;
+    }
+
+    .podcast-listen-btn, .podcast-download-btn {
+        background: var(--primary-600);
+        color: var(--neutral-0);
+        border: none;
+        padding: 8px 16px;
+        border-radius: var(--radius-md);
+        font-size: 0.9em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        box-sizing: border-box;
+        min-height: 36px;
+    }
+
+    .podcast-listen-btn:hover, .podcast-download-btn:hover {
+        background: var(--primary-700);
+        transform: translateY(-1px);
+    }
+
+    .podcast-listen-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Audio Player Container */
+    .podcast-player {
+        margin-top: 10px;
+        padding: 15px;
+        background: var(--neutral-50);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--neutral-200);
+        transition: all var(--transition-normal);
+    }
+
+    .podcast-player audio {
+        width: 100%;
+        max-width: 100%;
+        height: 40px;
+        outline: none;
+    }
+
+    /* Enhanced audio controls styling */
+    .podcast-player audio::-webkit-media-controls-panel {
+        background-color: var(--neutral-0);
+        border-radius: var(--radius-md);
+    }
+
+    .podcast-player audio::-webkit-media-controls-play-button,
+    .podcast-player audio::-webkit-media-controls-pause-button {
+        background-color: var(--primary-600);
+        border-radius: 50%;
+    }
+
+    .podcast-player audio::-webkit-media-controls-timeline {
+        background-color: var(--neutral-200);
+        border-radius: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .podcast-player audio::-webkit-media-controls-current-time-display,
+    .podcast-player audio::-webkit-media-controls-time-remaining-display {
+        color: var(--neutral-600);
+        font-size: 0.85em;
+    }
+
+    /* Dark mode overrides for podcast components */
+    .dark-mode .podcast-listen-btn {
+        background: var(--accent-electric);
+        color: var(--neutral-0);
+    }
+
+    .dark-mode .podcast-listen-btn:hover {
+        background: var(--primary-700);
+    }
+
+    .dark-mode .podcast-download-btn {
+        background: var(--primary-700);
+    }
+
+    .dark-mode .podcast-download-btn:hover {
+        background: var(--primary-600);
+    }
+
+    .dark-mode .podcast-player {
+        background: var(--neutral-800) !important;
+        border-color: var(--neutral-600) !important;
+    }
+
+    .dark-mode .podcast-player audio::-webkit-media-controls-panel {
+        background-color: var(--neutral-700);
+    }
+
+    .dark-mode .podcast-player audio::-webkit-media-controls-play-button,
+    .dark-mode .podcast-player audio::-webkit-media-controls-pause-button {
+        background-color: var(--accent-electric);
+    }
+
+    .dark-mode .podcast-player audio::-webkit-media-controls-timeline {
+        background-color: var(--neutral-600);
+    }
+
+    .dark-mode .podcast-player audio::-webkit-media-controls-current-time-display,
+    .dark-mode .podcast-player audio::-webkit-media-controls-time-remaining-display {
+        color: var(--neutral-200);
+    }
+
+    /* Loading state for podcast buttons */
+    .podcast-listen-btn.loading {
+        position: relative;
+        color: transparent;
+    }
+
+    .podcast-listen-btn.loading::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid var(--neutral-0);
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: button-spin 1s linear infinite;
+    }
+
+    @keyframes button-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Responsive adjustments for podcast controls */
+    @media (max-width: 768px) {
+        .podcast-controls {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .podcast-listen-btn, .podcast-download-btn {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+
+    /* Enhanced hover effects for podcast items */
+    .podcast-item {
+        transition: all var(--transition-normal);
+    }
+
+    .podcast-item:hover .podcast-listen-btn {
+        background: var(--accent-electric);
+        transform: translateY(-1px);
+    }
+
+    .podcast-item:hover .podcast-download-btn {
+        background: var(--accent-neon);
+        transform: translateY(-1px);
+    }
+
+    /* Animation for showing/hiding audio player */
+    .podcast-player {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .podcast-player[style*="display: block"] {
+        opacity: 1;
+        max-height: 200px;
+        margin-top: 15px;
+    }
+
+    /* Focus states for accessibility */
+    .podcast-listen-btn:focus,
+    .podcast-download-btn:focus {
+        outline: 2px solid var(--accent-electric);
+        outline-offset: 2px;
+    }
+
+    .podcast-player audio:focus {
+        outline: 2px solid var(--accent-electric);
+        outline-offset: 2px;
+    }
+
+    /* Error state styling */
+    .podcast-listen-btn.error {
+        background: var(--accent-error);
+        color: var(--neutral-0);
+    }
+
+    .podcast-listen-btn.error:hover {
+        background: #dc2626;
+    }
 }

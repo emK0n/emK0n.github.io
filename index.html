@@ -495,8 +495,7 @@
                     </p>
                     
                     <div id="podcastGrid" class="podcast-grid">
-                        <div class="loading-spinner"></div>
-                        <span style="margin-left: 10px; color: var(--neutral-600);">Loading podcasts...</span>
+                        <!-- Podcasts will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -695,20 +694,39 @@
             }
         }
 
-        // Load podcasts from podcast/ folder
+        // Load specific podcast files
         async function loadPodcasts() {
             const grid = document.getElementById('podcastGrid');
             window.podcastsLoaded = true;
 
             try {
-                // Simulate API call to get podcast files
-                const response = await fetch('/api/podcasts');
+                // Define the specific podcast files we want to load
+                const podcastFiles = ['podcast_20250727', 'podcast_20250728'];
+                const podcasts = [];
 
-                if (!response.ok) {
-                    throw new Error('Failed to load podcasts');
+                // Load metadata for each podcast
+                for (const filename of podcastFiles) {
+                    try {
+                        const response = await fetch(`podcast/${filename}.txt`);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const lines = content.split('\n');
+                            
+                            // Parse metadata from txt file
+                            const podcast = {
+                                filename: filename,
+                                title: lines[0]?.replace('Title: ', '').replace(/^"|"$/g, '') || 'Daily Podcast',
+                                description: lines[1]?.replace('Description: ', '') || '',
+                                duration: lines[2]?.replace('Length: ', '') || '',
+                                date: lines[3]?.replace('Date: ', '') || ''
+                            };
+                            
+                            podcasts.push(podcast);
+                        }
+                    } catch (error) {
+                        console.error(`Failed to load ${filename}:`, error);
+                    }
                 }
-
-                const podcasts = await response.json();
 
                 if (podcasts.length === 0) {
                     grid.innerHTML = `
@@ -724,41 +742,46 @@
                 grid.innerHTML = createPodcastList(podcasts);
 
             } catch (error) {
-                // Fallback for development/demo
+                console.error('Error loading podcasts:', error);
                 grid.innerHTML = createDemoPodcastList();
             }
         }
 
         function createPodcastList(podcasts) {
-            return `
-                <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
-                    <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        ${podcasts.map(podcast => `
-                            <li style="margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <span style="font-size: 1.5em;">🎙️</span>
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: var(--primary-600);">${podcast.title}</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${podcast.date} • ${podcast.duration}</div>
-                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">${podcast.description}</div>
-                                    </div>
-                                    <div style="display: flex; gap: 10px; align-items: center;">
-                                        <button onclick="togglePodcastPlayer('${podcast.filename}', this)" class="download-button">🎧 Listen</button>
-                                        <a href="podcast/${podcast.filename}" class="download-button" download>📥 Download</a>
-                                    </div>
-                                </div>
-                                <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                    <audio controls style="width: 100%; max-width: 100%;">
-                                        <source src="podcast/${podcast.filename}" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                </div>
-                            </li>
-                        `).join('')}
-                    </ul>
+            return podcasts.map(podcast => `
+                <div class="podcast-item">
+                    <div class="item-title">
+                        🎙️ ${podcast.title}
+                    </div>
+                    <div class="item-meta">
+                        ${podcast.date} • ${podcast.duration}
+                    </div>
+                    <div class="item-description">
+                        ${podcast.description}
+                    </div>
+                    <div class="podcast-controls">
+                        <button onclick="togglePodcastPlayer('${podcast.filename}.mp3', this)" 
+                                class="podcast-listen-btn" 
+                                data-audio-file="${podcast.filename}.mp3">
+                            🎧 Listen
+                        </button>
+                        <a href="podcast/${podcast.filename}.mp3" 
+                           class="podcast-download-btn" 
+                           download>
+                            📥 Download
+                        </a>
+                    </div>
+                    <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" 
+                         class="podcast-player" 
+                         style="display: none;">
+                        <audio controls style="width: 100%; max-width: 100%;">
+                            <source src="podcast/${podcast.filename}.mp3" type="audio/mpeg">
+                            <source src="podcast/${podcast.filename}.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
                 </div>
-            `;
+            `).join('');
         }
 
         function createDemoPodcastList() {
@@ -779,6 +802,11 @@
             const playerId = 'player-' + filename.replace(/[^a-zA-Z0-9]/g, '');
             const player = document.getElementById(playerId);
 
+            if (!player) {
+                console.error(`Player element with ID '${playerId}' not found`);
+                return;
+            }
+
             if (player.style.display === 'none' || player.style.display === '') {
                 player.style.display = 'block';
                 button.innerHTML = '⏹️ Hide';
@@ -786,7 +814,31 @@
 
                 const audio = player.querySelector('audio');
                 if (audio) {
-                    audio.play().catch(e => console.log('Auto-play prevented by browser policy'));
+                    button.innerHTML = '⏳ Loading...';
+                    button.disabled = true;
+
+                    audio.addEventListener('loadstart', () => {
+                        console.log('Audio loading started');
+                    });
+
+                    audio.addEventListener('canplay', () => {
+                        console.log('Audio can start playing');
+                        button.innerHTML = '⏹️ Hide';
+                        button.disabled = false;
+                    });
+
+                    audio.addEventListener('error', (e) => {
+                        console.error('Audio loading error:', e);
+                        button.innerHTML = '❌ Error';
+                        button.disabled = false;
+                    });
+
+                    audio.load();
+                    audio.play().catch(e => {
+                        console.log('Auto-play prevented by browser policy');
+                        button.innerHTML = '⏹️ Hide';
+                        button.disabled = false;
+                    });
                 }
             } else {
                 player.style.display = 'none';
@@ -794,7 +846,9 @@
                 button.style.background = 'var(--accent-electric)';
 
                 const audio = player.querySelector('audio');
-                if (audio) audio.pause();
+                if (audio) {
+                    audio.pause();
+                }
             }
         }
 
