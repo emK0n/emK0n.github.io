@@ -393,6 +393,26 @@
             border-left: 4px solid #3b82f6;
         }
 
+        /* Week Review Link Styling */
+        .review-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--neutral-50);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition-normal);
+            border-left: 4px solid var(--accent-electric);
+        }
+
+        .review-link:hover {
+            background: var(--primary-50);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
         /* Dark mode overrides */
         .dark-mode .video-container, .dark-mode .feature-container {
             background: var(--neutral-800);
@@ -466,6 +486,15 @@
         .dark-mode .status-info {
             background: var(--neutral-800);
             color: var(--accent-electric);
+        }
+
+        .dark-mode .review-link {
+            background: var(--neutral-800);
+            color: var(--neutral-100);
+        }
+
+        .dark-mode .review-link:hover {
+            background: var(--neutral-700);
         }
 
         @media (max-width: 768px) {
@@ -1070,7 +1099,7 @@
             }
         }
 
-        // Week Reviews Management
+        // FIXED Week Reviews Management - Load Local Files
         async function loadWeekReviewsContent() {
             const grid = document.getElementById('reviewGrid');
             const status = document.getElementById('reviewStatus');
@@ -1079,25 +1108,73 @@
             showStatusMessage(status, 'info', 'Loading week reviews...');
 
             try {
-                // Try to fetch from API first
-                const response = await fetch('/api/week-reviews');
+                // Define the local week review files
+                const reviewFiles = [
+                    { filename: 'week_review_2025-07-28.json', expectedTitle: 'Week Review July 28, 2025' },
+                    { filename: 'week_review_2025-07-27.json', expectedTitle: 'Week Review July 27, 2025' }
+                ];
                 
-                if (response.ok) {
-                    const reviews = await response.json();
-                    hideStatusMessage(status);
-                    
-                    if (reviews.length === 0) {
-                        grid.innerHTML = createEmptyState('📊', 'No week reviews available yet. Use the "Week in Review" button to generate comprehensive weekly analysis!');
-                        return;
-                    }
+                const availableReviews = [];
 
-                    grid.innerHTML = createWeekReviewList(reviews);
-                } else {
-                    throw new Error('API not available');
+                // Check which files are actually available
+                for (const reviewFile of reviewFiles) {
+                    try {
+                        console.log(`Checking for: wir/${reviewFile.filename}`);
+                        const response = await fetch(`wir/${reviewFile.filename}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log(`Successfully found ${reviewFile.filename}`);
+                            
+                            // Extract meaningful information from the JSON
+                            let title = reviewFile.expectedTitle;
+                            let date = reviewFile.filename.replace('week_review_', '').replace('.json', '');
+                            let topicsCount = 0;
+                            
+                            // Try to extract more specific info from the data structure
+                            if (data.analysis && data.analysis.keywords) {
+                                topicsCount = data.analysis.keywords.length;
+                            } else if (data.keyword_counts) {
+                                topicsCount = Object.keys(data.keyword_counts).length;
+                            }
+                            
+                            if (data.generated_date) {
+                                const genDate = new Date(data.generated_date);
+                                date = genDate.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                });
+                            }
+                            
+                            availableReviews.push({
+                                filename: reviewFile.filename,
+                                title: title,
+                                date: date,
+                                topicsCount: topicsCount
+                            });
+                        } else {
+                            console.log(`File not found: ${reviewFile.filename}`);
+                        }
+                    } catch (error) {
+                        console.log(`Error checking ${reviewFile.filename}:`, error);
+                    }
                 }
 
+                // Hide status message
+                hideStatusMessage(status);
+
+                if (availableReviews.length === 0) {
+                    console.log('No week reviews found, showing empty state');
+                    grid.innerHTML = createEmptyState('📊', 'No week reviews available yet. Use the "Week in Review" button to generate comprehensive weekly analysis!');
+                    return;
+                }
+
+                console.log(`Found ${availableReviews.length} week reviews`);
+                // Create reviews list
+                grid.innerHTML = createWeekReviewList(availableReviews);
+
             } catch (error) {
-                console.log('Week reviews API not available, showing demo content');
+                console.error('Error loading week reviews:', error);
                 hideStatusMessage(status);
                 grid.innerHTML = createDemoWeekReviewList();
             }

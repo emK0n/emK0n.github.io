@@ -475,6 +475,7 @@
             const filename = urlParams.get('file');
             
             if (filename) {
+                // Load from the wir/ directory
                 loadAnalysisData(filename);
             } else {
                 showError('No analysis file specified in URL parameters.');
@@ -483,6 +484,7 @@
 
         async function loadAnalysisData(filename) {
             try {
+                // Load from wir/ directory
                 const response = await fetch(`wir/${filename}`);
                 if (!response.ok) {
                     throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
