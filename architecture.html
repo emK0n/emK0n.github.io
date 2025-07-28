@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MattGPT - Enhanced Research Platform Architecture</title>
+    <title>MattGPT - Two-Track Architecture Documentation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,734 +14,430 @@
             </button>
             <div class="header-text">
                 <h1>MattGPT</h1>
-                <p>Enhanced Agentic AI Research Platform</p>
+                <p>Two-Track Architecture Documentation</p>
             </div>
         </div>
 
         <div class="tab-nav">
             <button class="tab-button active" onclick="showTab('overview')">
-                🚀 Platform Overview
+                🚀 Architecture Overview
             </button>
-            <button class="tab-button" onclick="showTab('workflow')">
-                🔄 User Workflows
+            <button class="tab-button" onclick="showTab('tracks')">
+                🔄 Two-Track System
             </button>
             <button class="tab-button" onclick="showTab('chain')">
-                🔗 Chain Animation
+                🔗 Chain Operations
             </button>
-            <button class="tab-button" onclick="showTab('architecture')">
-                🏗️ Technical Architecture
+            <button class="tab-button" onclick="showTab('chat')">
+                💬 Enhanced Chat
             </button>
-            <button class="tab-button" onclick="showTab('features')">
-                ✨ Advanced Features
+            <button class="tab-button" onclick="showTab('technical')">
+                🏗️ Technical Details
             </button>
         </div>
 
-        <!-- PLATFORM OVERVIEW TAB -->
+        <!-- ARCHITECTURE OVERVIEW TAB -->
         <div id="overview" class="tab-content active">
             <div class="section">
-                <h2>🚀 MattGPT Research Platform Overview</h2>
+                <h2>🚀 MattGPT Two-Track Architecture Overview</h2>
                 
                 <div class="workflow-grid">
                     <div class="workflow-card">
-                        <div class="workflow-title">🔍 Smart Research Discovery</div>
+                        <div class="workflow-title">🧠 Local AI Foundation</div>
                         <div class="workflow-description">
-                            Automated hot topics analysis with AI-powered article collection, relevance scoring, and boost algorithms for trending content.
+                            Powered by IBM's Granite 3.2:8b model running locally via Ollama, providing complete privacy and no cloud dependencies for all AI operations.
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">🌐 Enhanced Internet Search</div>
+                        <div class="workflow-title">🏗️ Separation of Concerns</div>
                         <div class="workflow-description">
-                            Multi-provider web search with real-time analysis, content extraction, and intelligent result curation.
+                            Two-Track Architecture separates complex automated workflows from conversational interactions, preventing interference and enabling specialized optimization.
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">📊 Week in Review Analytics</div>
+                        <div class="workflow-title">📊 Data Processing Pipeline</div>
                         <div class="workflow-description">
-                            7-day trend consolidation with interactive word clouds, keyword frequency analysis, and comprehensive summaries.
+                            Multi-source content curation from RSS feeds, web scraping, and PDF processing with AI-powered relevance scoring and hot topics detection.
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">🎙️ AI Podcast Generation</div>
+                        <div class="workflow-title">🎙️ Content Generation</div>
                         <div class="workflow-description">
-                            Automated podcast creation with Edge-TTS, dual voice synthesis, and intelligent script generation from top articles.
+                            Edge-TTS voice synthesis creates daily podcasts with dual speaker personalities, intelligent script generation, and audio assembly.
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">💬 Contextual Chat Assistant</div>
+                        <div class="workflow-title">👥 Customer Intelligence</div>
                         <div class="workflow-description">
-                            LLM-powered conversations with article context, PDF processing, and intelligent database search integration.
+                            CSV-based customer database with cluster organization, reference materials caching, and intelligent research insights generation.
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">📋 Dynamic Interest Management</div>
+                        <div class="workflow-title">📈 Analytics & Visualization</div>
                         <div class="workflow-description">
-                            Weighted interest scoring with morning greeting workflows, relevance customization, and adaptive learning.
+                            D3.js-powered word clouds, trend analysis, keyword frequency tables, and comprehensive weekly review generation.
                         </div>
                     </div>
                 </div>
 
-                <h3>🎯 Core Capabilities</h3>
+                <h3>🎯 Core System Capabilities</h3>
                 <div class="flow-diagram">
                     <div class="workflow-step">
-                        <div class="step-title">Intelligent Content Curation</div>
-                        <div class="step-description">Multi-source content collection from RSS feeds, arXiv papers, Reddit, and Hacker News with AI relevance scoring</div>
+                        <div class="step-title">Local-First Architecture</div>
+                        <div class="step-description">Complete system runs locally with no cloud dependencies, ensuring privacy and control over all data processing</div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="step-title">Hot Topics Boost Algorithm</div>
-                        <div class="step-description">Real-time trending topic detection with automatic article rescoring and relevance enhancement</div>
+                        <div class="step-title">Modular Component Design</div>
+                        <div class="step-description">Independent modules for content curation, current events analysis, chat assistance, and customer management</div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="step-title">Advanced Search & Analysis</div>
-                        <div class="step-description">DuckDuckGo, Google Custom Search, and Bing integration with PDF processing and content extraction</div>
+                        <div class="step-title">Intelligent Progress Tracking</div>
+                        <div class="step-description">Real-time progress monitoring across all operations with detailed phase information and completion status</div>
                     </div>
                     
                     <div class="workflow-step">
-                        <div class="step-title">Chain Workflow Orchestration</div>
-                        <div class="step-description">Sequential execution of research → analysis → podcast generation with state management</div>
+                        <div class="step-title">Flexible Configuration</div>
+                        <div class="step-description">JSON-based configuration for RSS sources, search providers, interests, and analysis parameters</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- USER WORKFLOWS TAB -->
-        <div id="workflow" class="tab-content">
+        <!-- TWO-TRACK SYSTEM TAB -->
+        <div id="tracks" class="tab-content">
             <div class="section">
-                <h2>🔄 Enhanced User Workflows</h2>
+                <h2>🔄 Two-Track System Architecture</h2>
                 
-                <h3>🔍 "What's Going On?" - Complete Research Chain</h3>
+                <h3>🎯 Architecture Philosophy</h3>
+                <p style="color: var(--neutral-600); margin-bottom: 30px;">
+                    The Two-Track Architecture implements complete separation of concerns between complex automated workflows and conversational interactions, preventing interference while enabling specialized optimization for each use case.
+                </p>
+
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <div class="workflow-title">🔗 Track 1: Chain Operations</div>
+                        <div class="workflow-description">
+                            <strong>Purpose:</strong> Complex automated workflows<br>
+                            <strong>Trigger:</strong> Button-driven operations<br>
+                            <strong>Examples:</strong> "What's Going On?", Week in Review, Daily Podcast<br>
+                            <strong>Features:</strong> Progress tracking, multi-step orchestration, result modals
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">💬 Track 2: Enhanced Chat</div>
+                        <div class="workflow-description">
+                            <strong>Purpose:</strong> Conversational interactions<br>
+                            <strong>Trigger:</strong> Text input and messaging<br>
+                            <strong>Examples:</strong> Article discussions, URL analysis, customer queries<br>
+                            <strong>Features:</strong> Session management, context awareness, streaming responses
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔄 Track Interaction Patterns</h3>
                 <div class="flow-diagram">
                     <div class="workflow-step start">
-                        <div class="step-title">User Triggers Workflow</div>
-                        <div class="step-description">Frontend button click or voice command initiates comprehensive research chain</div>
-                        <div class="step-details">startWhatsGoingOn() → /api/research-agent/start with chain_workflow=true</div>
+                        <div class="step-title">User Interface Layer</div>
+                        <div class="step-description">Single UI routes interactions to appropriate track based on input type</div>
+                        <div class="step-details">Button clicks → Chain Operations / Text input → Enhanced Chat</div>
                     </div>
 
                     <div class="workflow-step decision">
-                        <div class="step-title">Morning Greeting & Interests</div>
-                        <div class="step-description">Daily flag check shows personalized greeting with interest review option</div>
-                        <div class="step-details">_needs_morning_greeting() → _show_morning_greeting() → Interest adjustment flow</div>
-                    </div>
-
-                    <div class="workflow-step decision">
-                        <div class="step-title">Hot Topics Boost Analysis</div>
-                        <div class="step-description">Smart detection of existing quality boost data with force refresh option</div>
-                        <div class="step-details">check_hot_topics_boost_status() → Quality threshold evaluation → Path selection</div>
+                        <div class="step-title">Request Classification</div>
+                        <div class="step-description">Intelligent routing determines which track should handle the request</div>
+                        <div class="step-details">Intent detection, session context, and operation type analysis</div>
                     </div>
 
                     <div class="workflow-step">
-                        <div class="step-title">Path A: Show Existing Results</div>
-                        <div class="step-description">Quality boost data exists - immediate modal display with refresh option</div>
-                        <div class="step-details">_prepare_existing_results_for_modal() → Modal with filtering/sorting</div>
+                        <div class="step-title">Track 1: Chain Operations Manager</div>
+                        <div class="step-description">Handles complex workflows with direct module orchestration</div>
+                        <div class="step-details">Direct API calls to content curator, current events analyzer, podcast generator</div>
                     </div>
 
                     <div class="workflow-step">
-                        <div class="step-title">Path B: Fresh Analysis Pipeline</div>
-                        <div class="step-description">Generate new hot topics → Collect articles → Apply boost scoring</div>
-                        <div class="step-details">TechBusinessEventsAnalyzer → ContentCurator → rescore_with_hot_topics()</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Chain Step 2: Week in Review</div>
-                        <div class="step-description">Analyze 7 days of data with LLM consolidation and word cloud generation</div>
-                        <div class="step-details">WeekInReviewProcessor → D3.js visualization → Modal display</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Chain Step 3: Podcast Generation</div>
-                        <div class="step-description">AI script generation with Edge-TTS dual voice synthesis</div>
-                        <div class="step-details">PodcastGenerator → DialoguePiece parsing → Edge-TTS → Audio assembly</div>
+                        <div class="step-title">Track 2: Enhanced Chat Manager</div>
+                        <div class="step-description">Manages conversational interactions with session state</div>
+                        <div class="step-details">Article context, customer database queries, URL analysis, PDF processing</div>
                     </div>
 
                     <div class="workflow-step end">
-                        <div class="step-title">Complete Results Presentation</div>
-                        <div class="step-description">Interactive modal with articles, downloadable podcast, and chat interface</div>
-                        <div class="step-details">Chain completion summary → File download links → Enable chat mode</div>
+                        <div class="step-title">Response Formatting</div>
+                        <div class="step-description">Track-specific response formatting and delivery to frontend</div>
+                        <div class="step-details">Chain: Progress tracking + Modals / Chat: Streaming responses + Context</div>
                     </div>
                 </div>
 
-                <h3>🌐 Enhanced Internet Search Workflow</h3>
-                <div class="flow-diagram">
-                    <div class="workflow-step start">
-                        <div class="step-title">Search Query Processing</div>
-                        <div class="step-description">Multi-provider search with intelligent query optimization</div>
-                        <div class="step-details">EnhancedSearchProvider → DuckDuckGo/Google/Bing → Result aggregation</div>
+                <h3>🎯 Track Isolation Benefits</h3>
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <div class="workflow-title">⚡ Performance Optimization</div>
+                        <div class="workflow-description">
+                            Each track optimized for its specific use case without interference from the other track's operations or state management.
+                        </div>
                     </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Content Enhancement</div>
-                        <div class="step-description">Web scraping, PDF processing, and AI summary generation</div>
-                        <div class="step-details">scrape_webpage() → PDF detection → generate_summary_and_relevance()</div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">🔄 Independent Scaling</div>
+                        <div class="workflow-description">
+                            Chain operations can handle long-running workflows while chat maintains responsiveness for immediate interactions.
+                        </div>
                     </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Interactive Results Display</div>
-                        <div class="step-description">Real-time chat about results with save-to-database functionality</div>
-                        <div class="step-details">Modal presentation → Chat integration → Database storage options</div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">🛡️ Error Isolation</div>
+                        <div class="workflow-description">
+                            Failures in one track don't affect the other, ensuring system stability and graceful degradation.
+                        </div>
                     </div>
-                </div>
-
-                <h3>📊 Week in Review Advanced Analytics</h3>
-                <div class="flow-diagram">
-                    <div class="workflow-step start">
-                        <div class="step-title">Multi-Day File Discovery</div>
-                        <div class="step-description">Scan 7 days for current_events_analysis_*.json files with date parsing</div>
-                        <div class="step-details">_find_recent_analysis_files() → Date validation → Content extraction</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">LLM-Powered Consolidation</div>
-                        <div class="step-description">ChatAssistant groups similar terms and generates insights</div>
-                        <div class="step-details">_consolidate_with_llm() → Keyword grouping → Trend analysis</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Interactive Visualization</div>
-                        <div class="step-description">D3.js word clouds with frequency tables and comprehensive summary</div>
-                        <div class="step-details">generateWordCloudInModal() → Frequency analysis → Print-friendly format</div>
-                    </div>
-                </div>
-
-                <h3>🎙️ Advanced Podcast Generation</h3>
-                <div class="flow-diagram">
-                    <div class="workflow-step start">
-                        <div class="step-title">Content Selection & Script Generation</div>
-                        <div class="step-description">Top 5 articles with AI-generated dialogue between Alex and Sam personas</div>
-                        <div class="step-details">_select_top_articles() → _generate_podcast_script() → 2000+ word dialogue</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Voice Synthesis with Edge-TTS</div>
-                        <div class="step-description">Distinct voices with intelligent pause insertion and audio assembly</div>
-                        <div class="step-details">DialoguePiece parsing → Edge-TTS generation → pydub audio combining</div>
-                    </div>
-
-                    <div class="workflow-step">
-                        <div class="step-title">Fallback & Quality Assurance</div>
-                        <div class="step-description">System TTS fallback with enhanced script output for manual processing</div>
-                        <div class="step-details">Capability detection → Graceful degradation → Download interface</div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">🔧 Simplified Debugging</div>
+                        <div class="workflow-description">
+                            Clear separation makes it easier to troubleshoot issues and implement new features without cross-track interference.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- CHAIN ANIMATION TAB -->
+        <!-- CHAIN OPERATIONS TAB -->
         <div id="chain" class="tab-content">
             <div class="section">
-                <h2>🔗 "What's Going On?" Chain Workflow Animation</h2>
+                <h2>🔗 Chain Operations Track</h2>
                 
+                <h3>🎯 Chain Operations Manager</h3>
+                <p style="color: var(--neutral-600); margin-bottom: 30px;">
+                    The Chain Operations Manager provides direct orchestration of complex workflows without research assistant dependency. It manages multi-step operations with progress tracking and result delivery.
+                </p>
+
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <div class="workflow-title">🔍 "What's Going On?" Workflow</div>
+                        <div class="workflow-description">
+                            <strong>Steps:</strong> Current events analysis → Hot topics detection → Article collection → Relevance scoring<br>
+                            <strong>Output:</strong> Ranked articles with boost scores and trending topics modal<br>
+                            <strong>Features:</strong> Force refresh option, existing data detection
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">📊 Week in Review Generation</div>
+                        <div class="workflow-description">
+                            <strong>Steps:</strong> File discovery → Data parsing → LLM consolidation → Visualization<br>
+                            <strong>Output:</strong> D3.js word clouds, keyword frequency tables, comprehensive summaries<br>
+                            <strong>Features:</strong> 7-day analysis, caching, print-friendly format
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">🎙️ Daily Podcast Creation</div>
+                        <div class="workflow-description">
+                            <strong>Steps:</strong> Article selection → Script generation → Voice synthesis → Audio assembly<br>
+                            <strong>Output:</strong> MP3 podcast with dual speaker dialogue (Alex & Sam)<br>
+                            <strong>Features:</strong> Edge-TTS integration, fallback options, metadata generation
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <div class="workflow-title">🔄 Force Content Refresh</div>
+                        <div class="workflow-description">
+                            <strong>Steps:</strong> Source validation → Content collection → AI analysis → Database update<br>
+                            <strong>Output:</strong> Fresh content with updated relevance scores<br>
+                            <strong>Features:</strong> Configurable timeframe, selective refresh options
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔗 Chain Operation Flow</h3>
                 <div class="interactive-section">
-                    <h3>Interactive Chain Demonstration</h3>
-                    <p>Click the play button to see the complete research chain workflow in action:</p>
-                    <button class="play-button" onclick="startChainAnimation()">▶️ Start Chain Animation</button>
+                    <button class="play-button" onclick="startChainAnimation()">▶️ View Chain Operation Animation</button>
                 </div>
 
                 <div class="chain-animation" id="chainAnimation">
                     <div class="chain-step" id="step1">
                         <div class="chain-icon">🚀</div>
                         <div class="chain-content">
-                            <div class="chain-title">Morning Greeting & Interest Check</div>
-                            <div class="chain-desc">Daily personalized greeting with research interest review and adjustment options</div>
+                            <div class="chain-title">Operation Initialization</div>
+                            <div class="chain-desc">Create session, check existing data, initialize progress tracking</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step2">
                         <div class="chain-icon">🔍</div>
                         <div class="chain-content">
-                            <div class="chain-title">Hot Topics Boost Analysis</div>
-                            <div class="chain-desc">Check existing boost data quality or generate fresh current events analysis</div>
+                            <div class="chain-title">Current Events Analysis</div>
+                            <div class="chain-desc">RSS feed collection, headline analysis, hot topics detection</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step3">
                         <div class="chain-icon">📰</div>
                         <div class="chain-content">
-                            <div class="chain-title">Content Collection & AI Processing</div>
-                            <div class="chain-desc">Multi-source article gathering with AI summarization and relevance scoring</div>
+                            <div class="chain-title">Content Collection</div>
+                            <div class="chain-desc">Multi-source article gathering, web scraping, content extraction</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step4">
-                        <div class="chain-icon">🔥</div>
+                        <div class="chain-icon">🤖</div>
                         <div class="chain-content">
-                            <div class="chain-title">Hot Topics Rescoring</div>
-                            <div class="chain-desc">Apply trending topic boost scores to enhance article relevance rankings</div>
+                            <div class="chain-title">AI Processing</div>
+                            <div class="chain-desc">Granite 3.2 analysis, summarization, relevance scoring</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step5">
-                        <div class="chain-icon">📊</div>
+                        <div class="chain-icon">🔥</div>
                         <div class="chain-content">
-                            <div class="chain-title">Week in Review Generation</div>
-                            <div class="chain-desc">7-day analysis consolidation with interactive word clouds and trend insights</div>
+                            <div class="chain-title">Hot Topics Boost</div>
+                            <div class="chain-desc">Apply trending topic scores to enhance article rankings</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step6">
-                        <div class="chain-icon">🎙️</div>
+                        <div class="chain-icon">📊</div>
                         <div class="chain-content">
-                            <div class="chain-title">Podcast Creation</div>
-                            <div class="chain-desc">AI script generation with Edge-TTS dual voice synthesis and audio assembly</div>
+                            <div class="chain-title">Results Compilation</div>
+                            <div class="chain-desc">Generate modal content, prepare downloads, update progress</div>
                         </div>
                     </div>
 
                     <div class="chain-step" id="step7">
                         <div class="chain-icon">✅</div>
                         <div class="chain-content">
-                            <div class="chain-title">Complete Results Presentation</div>
-                            <div class="chain-desc">Interactive research modal with downloadable content and chat interface</div>
+                            <div class="chain-title">Delivery Complete</div>
+                            <div class="chain-desc">Present results in interactive modal with filtering and chat options</div>
                         </div>
                     </div>
                 </div>
 
-                <h3>🎯 Chain Benefits</h3>
-                <div class="workflow-grid">
-                    <div class="workflow-card">
-                        <div class="workflow-title">⚡ Intelligent Efficiency</div>
-                        <div class="workflow-description">
-                            Smart detection of existing quality data to avoid redundant processing while maintaining freshness options.
-                        </div>
-                    </div>
-                    
-                    <div class="workflow-card">
-                        <div class="workflow-title">🔄 Seamless Orchestration</div>
-                        <div class="workflow-description">
-                            Automated state management between research, analysis, and content generation phases.
-                        </div>
-                    </div>
-                    
-                    <div class="workflow-card">
-                        <div class="workflow-title">🎨 Rich Output Formats</div>
-                        <div class="workflow-description">
-                            Multiple deliverables: ranked articles, visual analytics, downloadable podcasts, and interactive summaries.
-                        </div>
-                    </div>
-                    
-                    <div class="workflow-card">
-                        <div class="workflow-title">💬 Contextual Interaction</div>
-                        <div class="workflow-description">
-                            Post-chain chat capabilities with full context of generated content and analysis results.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TECHNICAL ARCHITECTURE TAB -->
-        <div id="architecture" class="tab-content">
-            <div class="section">
-                <h2>🏗️ Enhanced Technical Architecture</h2>
-                
-                <div class="architecture-grid">
-                    <div class="component-card">
-                        <div class="component-title">🌐 Flask Web Application</div>
-                        <div class="component-description">Main application server with comprehensive API endpoints for all workflows</div>
-                        <ul class="methods-list">
-                            <li>/api/research-agent/start</li>
-                            <li>/api/research-agent/message</li>
-                            <li>/api/research-agent/search</li>
-                            <li>/api/research-agent/all-articles</li>
-                            <li>/api/week-in-review/start</li>
-                            <li>/api/daily-podcast/start</li>
-                            <li>/api/pdf/process</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">🤖 Enhanced Research Assistant</div>
-                        <div class="component-description">Core orchestration with state management, chain workflows, and intelligent decision making</div>
-                        <ul class="methods-list">
-                            <li>ResearchAgentSession</li>
-                            <li>start_session(chain_workflow)</li>
-                            <li>process_message()</li>
-                            <li>perform_internet_search()</li>
-                            <li>_check_hot_topics()</li>
-                            <li>_handle_chain_step_completion()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">📚 Advanced Content Curator</div>
-                        <div class="component-description">Multi-source collection with PDF support, hot topics scoring, and progress tracking</div>
-                        <ul class="methods-list">
-                            <li>ContentCurator</li>
-                            <li>EnhancedSearchProvider</li>
-                            <li>WebProgressTracker</li>
-                            <li>rescore_with_hot_topics()</li>
-                            <li>check_hot_topics_boost_status()</li>
-                            <li>scrape_webpage() + PDF support</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">🔥 Current Events Analyzer</div>
-                        <div class="component-description">SSL-fixed RSS collection with tech/business focus and LLM analysis</div>
-                        <ul class="methods-list">
-                            <li>TechBusinessEventsAnalyzer</li>
-                            <li>fetch_headlines()</li>
-                            <li>analyze_headlines()</li>
-                            <li>_enforce_single_word_keywords()</li>
-                            <li>clear_hot_topics_flags()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">💬 Contextual Chat Assistant</div>
-                        <div class="component-description">LLM integration with enhanced article context and PDF processing support</div>
-                        <ul class="methods-list">
-                            <li>ChatAssistant</li>
-                            <li>generate_response()</li>
-                            <li>get_article_for_chat()</li>
-                            <li>analyze_url() + PDF detection</li>
-                            <li>chat_about_internet_result()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">📊 Week Review Processor</div>
-                        <div class="component-description">7-day analysis with LLM consolidation, caching, and D3.js visualization</div>
-                        <ul class="methods-list">
-                            <li>WeekInReviewProcessor</li>
-                            <li>start_week_review()</li>
-                            <li>_consolidate_with_llm()</li>
-                            <li>save_week_review_to_file()</li>
-                            <li>load_existing_week_review()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">🎙️ Enhanced Podcast Generator</div>
-                        <div class="component-description">Edge-TTS integration with dual voice synthesis and intelligent fallbacks</div>
-                        <ul class="methods-list">
-                            <li>PodcastGenerator</li>
-                            <li>DialoguePiece</li>
-                            <li>_generate_speaker_audio()</li>
-                            <li>_combine_audio_clips()</li>
-                            <li>_convert_to_audio_enhanced()</li>
-                            <li>_create_error_fallback()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">📄 PDF Processing Module</div>
-                        <div class="component-description">Multi-library PDF support with graceful fallbacks and content extraction</div>
-                        <ul class="methods-list">
-                            <li>PDFProcessor</li>
-                            <li>is_pdf_url()</li>
-                            <li>extract_pdf_text()</li>
-                            <li>process_pdf_url()</li>
-                            <li>_extract_with_pdfplumber()</li>
-                            <li>_extract_with_pymupdf()</li>
-                        </ul>
-                    </div>
-
-                    <div class="component-card">
-                        <div class="component-title">🎨 Modern Frontend Interface</div>
-                        <div class="component-description">Glassmorphism design with real-time progress, modal system, and D3.js visualizations</div>
-                        <ul class="methods-list">
-                            <li>startWhatsGoingOn(force_refresh)</li>
-                            <li>Modal drag/resize system</li>
-                            <li>generateWordCloudInModal()</li>
-                            <li>Real-time progress polling</li>
-                            <li>Filter/sort article system</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>🔗 Enhanced API Endpoints</h3>
+                <h3>🔧 API Endpoints</h3>
                 <div class="endpoint-box">
                     <span class="method-badge method-post">POST</span>
-                    <strong>/api/research-agent/start</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Initialize research session with chain workflow and morning greeting</div>
+                    <strong>/api/chain/whats-going-on</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Start "What's Going On?" analysis with optional force refresh</div>
                 </div>
 
                 <div class="endpoint-box">
                     <span class="method-badge method-post">POST</span>
-                    <strong>/api/research-agent/all-articles</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Fetch all articles with boost scores for modal filtering</div>
+                    <strong>/api/chain/week-review</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Generate comprehensive week in review with D3.js visualizations</div>
+                </div>
+
+                <div class="endpoint-box">
+                    <span class="method-badge method-post">POST</span>
+                    <strong>/api/chain/podcast</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Create daily podcast with Edge-TTS voice synthesis</div>
                 </div>
 
                 <div class="endpoint-box">
                     <span class="method-badge method-get">GET</span>
-                    <strong>/api/research-agent/hot-topics-status/{date}</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Check boost scoring quality for intelligent workflow routing</div>
-                </div>
-
-                <div class="endpoint-box">
-                    <span class="method-badge method-post">POST</span>
-                    <strong>/api/week-in-review/start</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Start week review with caching and chain context support</div>
-                </div>
-
-                <div class="endpoint-box">
-                    <span class="method-badge method-post">POST</span>
-                    <strong>/api/daily-podcast/start</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Generate podcast with Edge-TTS and enhanced audio processing</div>
-                </div>
-
-                <div class="endpoint-box">
-                    <span class="method-badge method-post">POST</span>
-                    <strong>/api/pdf/process</strong>
-                    <div style="margin-top: 8px; color: var(--neutral-600);">Process PDF URLs with multi-library extraction support</div>
+                    <strong>/api/chain/progress/{session_id}</strong>
+                    <div style="margin-top: 8px; color: var(--neutral-600);">Get real-time progress updates for chain operations</div>
                 </div>
             </div>
         </div>
 
-        <!-- ADVANCED FEATURES TAB -->
-        <div id="features" class="tab-content">
+        <!-- ENHANCED CHAT TAB -->
+        <div id="chat" class="tab-content">
             <div class="section">
-                <h2>✨ Advanced Platform Features</h2>
+                <h2>💬 Enhanced Chat Track</h2>
+                
+                <h3>🧠 Enhanced Chat Manager</h3>
+                <p style="color: var(--neutral-600); margin-bottom: 30px;">
+                    The Enhanced Chat Manager provides stateful conversational interactions with advanced context awareness, session management, and specialized capabilities for article discussion and customer database queries.
+                </p>
 
-                <h3>🧠 Intelligent Decision Making</h3>
-                <div class="interactive-section">
-                    <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">🎯 Smart Workflow Routing</div>
-                        <div class="expandable-content">
-                            <strong>Quality Threshold Detection:</strong>
-                            <ul>
-                                <li>Automatic detection of existing boost scoring quality</li>
-                                <li>Dynamic workflow routing based on data freshness</li>
-                                <li>Force refresh option for power users</li>
-                                <li>Graceful degradation with useful fallbacks</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">⚡ Performance Optimizations</div>
-                        <div class="expandable-content">
-                            <strong>Advanced Efficiency Features:</strong>
-                            <ul>
-                                <li>Database-level locking to prevent duplicate AI processing</li>
-                                <li>Batch LLM processing for hot topics scoring</li>
-                                <li>Week review caching with automatic expiration</li>
-                                <li>Progressive enhancement with capability detection</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">🔄 State Management</div>
-                        <div class="expandable-content">
-                            <strong>Session & Workflow State:</strong>
-                            <ul>
-                                <li>Persistent session state across complex workflows</li>
-                                <li>Chain workflow orchestration with error recovery</li>
-                                <li>Morning greeting flags with daily reset</li>
-                                <li>Context preservation between different interaction modes</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>🎨 User Experience Enhancements</h3>
                 <div class="workflow-grid">
                     <div class="workflow-card">
-                        <div class="workflow-title">🎭 Interactive Modal System</div>
+                        <div class="workflow-title">💬 Session Management</div>
                         <div class="workflow-description">
-                            Draggable, resizable modals with filtering, sorting, and print-friendly week review displays.
+                            <strong>Features:</strong> Persistent session state, conversation history, context preservation<br>
+                            <strong>Database:</strong> SQLite session storage with activity tracking<br>
+                            <strong>Lifecycle:</strong> Auto-cleanup, timeout handling, context switching
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">🌈 Modern Glassmorphism UI</div>
+                        <div class="workflow-title">📰 Article Discussions</div>
                         <div class="workflow-description">
-                            Cutting-edge design with animated backgrounds, subtle glass effects, and smooth transitions.
+                            <strong>Features:</strong> Article context injection, relevance-based selection, intelligent responses<br>
+                            <strong>Capabilities:</strong> Summarization, key points extraction, follow-up questions<br>
+                            <strong>Integration:</strong> Direct database article access, metadata utilization
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">📊 D3.js Visualizations</div>
+                        <div class="workflow-title">🌐 URL Analysis</div>
                         <div class="workflow-description">
-                            Interactive word clouds with hover effects, frequency tables, and responsive design.
+                            <strong>Features:</strong> Web scraping, PDF processing, content extraction<br>
+                            <strong>Supported:</strong> Web pages, PDF documents, academic papers<br>
+                            <strong>Processing:</strong> Multi-library PDF support, graceful fallbacks
                         </div>
                     </div>
                     
                     <div class="workflow-card">
-                        <div class="workflow-title">⚡ Real-time Progress</div>
+                        <div class="workflow-title">👥 Customer Intelligence</div>
                         <div class="workflow-description">
-                            Live progress tracking with detailed phase information and estimated completion times.
+                            <strong>Features:</strong> Customer database queries, cluster analysis, research insights<br>
+                            <strong>Data Source:</strong> CSV-based customer management with cache integration<br>
+                            <strong>Capabilities:</strong> Fuzzy matching, multi-step workflows, battle card generation
                         </div>
                     </div>
                 </div>
 
-                <h3>🔧 Technical Capabilities</h3>
+                <h3>🎯 Chat Intent Detection</h3>
                 <div class="flow-diagram">
-                    <div class="workflow-step">
-                        <div class="step-title">Multi-Provider Search Integration</div>
-                        <div class="step-description">DuckDuckGo, Google Custom Search, and Bing with intelligent fallbacks and result aggregation</div>
+                    <div class="workflow-step start">
+                        <div class="step-title">Message Analysis</div>
+                        <div class="step-description">Parse user input for intent patterns and context clues</div>
+                        <div class="step-details">Database search patterns, article references, customer keywords</div>
                     </div>
-                    
-                    <div class="workflow-step">
-                        <div class="step-title">Advanced PDF Processing</div>
-                        <div class="step-description">PDFPlumber, PyMuPDF, and PyPDF2 support with automatic library detection and graceful degradation</div>
+
+                    <div class="workflow-step decision">
+                        <div class="step-title">Intent Classification</div>
+                        <div class="step-description">Determine appropriate response strategy based on detected intent</div>
+                        <div class="step-details">Article discussion, database search, URL analysis, customer management</div>
                     </div>
-                    
+
                     <div class="workflow-step">
-                        <div class="step-title">Edge-TTS Audio Synthesis</div>
-                        <div class="step-description">High-quality voice synthesis with distinct speaker personalities and intelligent pause insertion</div>
+                        <div class="step-title">Context Enrichment</div>
+                        <div class="step-description">Gather relevant context data for enhanced responses</div>
+                        <div class="step-details">Article content, customer data, URL processing, session history</div>
                     </div>
-                    
-                    <div class="workflow-step">
-                        <div class="step-title">LLM-Powered Analytics</div>
-                        <div class="step-description">Granite3.2:8b integration for summarization, relevance scoring, and trend consolidation</div>
+
+                    <div class="workflow-step end">
+                        <div class="step-title">Response Generation</div>
+                        <div class="step-description">Generate contextually aware response using Granite 3.2</div>
+                        <div class="step-details">Streaming responses, follow-up suggestions, action recommendations</div>
                     </div>
                 </div>
 
-                <h3>🚀 Deployment & Management</h3>
+                <h3>🔧 Enhanced Chat Features</h3>
                 <div class="interactive-section">
                     <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">🗄️ Enhanced Database Schema</div>
+                        <div class="component-title">📊 Database Integration</div>
                         <div class="expandable-content">
-                            <strong>Optimized Data Storage:</strong>
+                            <strong>Article Cross-Reference:</strong>
                             <ul>
-                                <li><code>relevance_boost</code> - Hot topics scoring enhancement</li>
-                                <li><code>hot_topics_date</code> - Boost scoring timestamp</li>
-                                <li><code>hot_topics_keywords_used</code> - Keywords for boost calculation</li>
-                                <li>WAL mode for better concurrency and performance</li>
+                                <li>Full-text search across article database</li>
+                                <li>Relevance-based article recommendations</li>
+                                <li>Metadata-driven content selection</li>
+                                <li>Smart article discussion initiation</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">🔄 Workflow Reset Utility</div>
+                        <div class="component-title">👥 Customer Management</div>
                         <div class="expandable-content">
-                            <strong>Development & Testing Tools:</strong>
-                            <ul>
-                                <li>Complete database state reset with backup creation</li>
-                                <li>Hot topics flag clearing for fresh testing</li>
-                                <li>Sample interest configuration setup</li>
-                                <li>Morning greeting flag management</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="expandable component-card" onclick="toggleExpand(this)">
-                        <div class="component-title">⚙️ Configuration Management</div>
-                        <div class="expandable-content">
-                            <strong>Flexible System Configuration:</strong>
-                            <ul>
-                                <li>JSON-based source configuration with hot reloading</li>
-                                <li>Environment variable support for API keys</li>
-                                <li>Graceful capability detection and fallbacks</li>
-                                <li>Comprehensive logging and error tracking</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function showTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-
-        function toggleExpand(element) {
-            const content = element.querySelector('.expandable-content');
-            content.classList.toggle('show');
-        }
-
-        let chainAnimationRunning = false;
-
-        function startChainAnimation() {
-            if (chainAnimationRunning) return;
-            
-            chainAnimationRunning = true;
-            const button = document.querySelector('.play-button');
-            button.textContent = '⏸️ Animation Running...';
-            button.disabled = true;
-
-            // Reset all steps
-            document.querySelectorAll('.chain-step').forEach(step => {
-                step.classList.remove('active', 'completed');
-            });
-
-            // Animate each step
-            const steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
-            let currentStep = 0;
-
-            function animateNextStep() {
-                if (currentStep > 0) {
-                    // Mark previous step as completed
-                    document.getElementById(steps[currentStep - 1]).classList.remove('active');
-                    document.getElementById(steps[currentStep - 1]).classList.add('completed');
-                }
-
-                if (currentStep < steps.length) {
-                    // Activate current step
-                    document.getElementById(steps[currentStep]).classList.add('active');
-                    currentStep++;
-                    
-                    // Schedule next step
-                    setTimeout(animateNextStep, 2000);
-                } else {
-                    // Animation complete
-                    setTimeout(() => {
-                        // Mark last step as completed
-                        document.getElementById(steps[steps.length - 1]).classList.remove('active');
-                        document.getElementById(steps[steps.length - 1]).classList.add('completed');
-                        
-                        // Reset button
-                        button.textContent = '🔄 Replay Animation';
-                        button.disabled = false;
-                        chainAnimationRunning = false;
-                    }, 2000);
-                }
-            }
-
-            // Start animation
-            setTimeout(animateNextStep, 500);
-        }
-
-        // Auto-start chain animation when tab is first opened
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add event listeners for tab switching
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.textContent.includes('Chain Animation') && !chainAnimationRunning) {
-                        setTimeout(startChainAnimation, 1000);
-                    }
-                });
-            });
-        });
-
-        // Dark mode toggle logic
-        const darkToggle = document.getElementById('darkmode-toggle');
-        const darkIcon = document.getElementById('darkmode-icon');
-        function setDarkMode(on) {
-            document.body.classList.toggle('dark-mode', on);
-            darkIcon.textContent = on ? '☀️' : '🌙';
-        }
-        // Load preference
-        const darkPref = localStorage.getItem('dark-mode') === 'true';
-        setDarkMode(darkPref);
-        darkToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-            darkIcon.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('dark-mode', isDark);
-        });
-    </script>
-</body>
-</html>
+                            <strong>Advanced Customer Intelligence:</strong>
+                            

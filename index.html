@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MattGPT - Enhanced Agentic AI Research Platform</title>
+    <title>MattGPT - Agentic AI Research Platform</title>
     <link rel="stylesheet" href="styles.css"> 
     <style>
         /* Additional styles specific to homepage */
@@ -256,6 +256,41 @@
             box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
         }
 
+        .documentation-section {
+            background: var(--primary-50);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--accent-neon);
+        }
+
+        .doc-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .doc-button {
+            background: var(--primary-600);
+            color: var(--neutral-0);
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .doc-button:hover {
+            background: var(--primary-700);
+            transform: translateY(-2px);
+        }
+
         .loading-spinner {
             display: inline-block;
             width: 20px;
@@ -311,6 +346,12 @@
             color: var(--neutral-200);
         }
 
+        .dark-mode .documentation-section {
+            background: var(--neutral-800);
+            color: var(--neutral-100);
+            border-color: var(--accent-neon);
+        }
+
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2.2em;
@@ -335,7 +376,7 @@
             </button>
             <div class="header-text">
                 <h1>MattGPT</h1>
-                <p>Enhanced Agentic AI Research Platform</p>
+                <p>Agentic AI Research Platform</p>
             </div>
         </div>
 
@@ -363,47 +404,80 @@
             <div class="hero-section">
                 <div class="hero-content">
                     <h1>Welcome to MattGPT</h1>
-                    <p>Your intelligent research companion that transforms how you discover, analyze, and consume information. From automated hot topics detection to AI-generated podcasts, MattGPT brings cutting-edge AI research capabilities to your fingertips.</p>
+                    <p>Your intelligent research companion powered by IBM's Granite 3.2 LLM. Experience Two-Track Architecture combining chain operations for complex workflows with enhanced chat for conversational interactions, all running locally on your machine.</p>
                 </div>
             </div>
             
             <div class="main-content">
                 <div class="video-container">
-                    <h3>MattGPT is an Agentic AI based entirely on Open Source and free code</h3>
+                    <h3>MattGPT: Local Agentic AI Research Platform</h3>
                          <div class="image-container" id="imageContainer">
-                            <img src="aboutMattGPT.png" alt="About Matt GPT" id="aboutImage" style="max-width: 100%; height: auto;">
+                            <img src="aboutMattGPT.png" alt="About MattGPT" id="aboutImage" style="max-width: 100%; height: auto;">
                         </div>
-                    <p style="color: var(--neutral-600); font-size: 0.9em;">Discover how MattGPT revolutionizes research workflows with AI-powered automation</p>
+                    <p style="color: var(--neutral-600); font-size: 0.9em;">Free and open-source research automation powered by local AI models</p>
                 </div>
 
                 <div class="section">
-                    <h2>🎯 Core Capabilities</h2>
+                    <h2>🎯 Two-Track Architecture</h2>
                     <div class="workflow-grid">
                         <div class="workflow-card">
-                            <div class="workflow-title">🔍 Smart Research Discovery</div>
+                            <div class="workflow-title">🔗 Chain Operations Track</div>
                             <div class="workflow-description">
-                                Automated hot topics analysis with AI-powered article collection, relevance scoring, and boost algorithms for trending content.
+                                Button-driven complex workflows including "What's Going On?" analysis, Week in Review generation, and Daily Podcast creation with progress tracking.
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-card">
+                            <div class="workflow-title">💬 Enhanced Chat Track</div>
+                            <div class="workflow-description">
+                                Conversational interactions with article context, customer database queries, URL analysis, and PDF processing capabilities.
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-card">
+                            <div class="workflow-title">🧠 Local AI Intelligence</div>
+                            <div class="workflow-description">
+                                Powered by IBM's Granite 3.2:8b model running locally via Ollama, providing summarization, relevance scoring, and content analysis.
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-card">
+                            <div class="workflow-title">🎙️ AI-Generated Content</div>
+                            <div class="workflow-description">
+                                Edge-TTS voice synthesis creates daily podcasts with dual speaker personalities and intelligent script generation from trending articles.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🔍 Core Workflows</h2>
+                    <div class="workflow-grid">
+                        <div class="workflow-card">
+                            <div class="workflow-title">📰 Current Events Analysis</div>
+                            <div class="workflow-description">
+                                Multi-source RSS feed collection from tech/business sources with AI analysis, hot topics detection, and relevance boost scoring.
                             </div>
                         </div>
                         
                         <div class="workflow-card">
                             <div class="workflow-title">🌐 Enhanced Internet Search</div>
                             <div class="workflow-description">
-                                Multi-provider web search with real-time analysis, content extraction, and intelligent result curation.
+                                Multi-provider search across DuckDuckGo, Google Custom Search, and Bing with intelligent fallbacks and content extraction.
                             </div>
                         </div>
                         
                         <div class="workflow-card">
-                            <div class="workflow-title">📊 Week in Review Analytics</div>
+                            <div class="workflow-title">📊 Advanced Analytics</div>
                             <div class="workflow-description">
-                                7-day trend consolidation with interactive word clouds, keyword frequency analysis, and comprehensive summaries.
+                                Week-in-review trend consolidation with D3.js word clouds, keyword frequency analysis, and comprehensive summaries.
                             </div>
                         </div>
                         
                         <div class="workflow-card">
-                            <div class="workflow-title">🎙️ AI Podcast Generation</div>
+                            <div class="workflow-title">👥 Customer Management</div>
                             <div class="workflow-description">
-                                Automated podcast creation with Edge-TTS, dual voice synthesis, and intelligent script generation from top articles.
+                                CSV-based customer database with cluster organization, reference materials, and intelligent cache management for research insights.
                             </div>
                         </div>
                     </div>
@@ -415,9 +489,9 @@
         <div id="podcasts" class="tab-content">
             <div class="main-content">
                 <div class="section">
-                    <h2>🎙️ AI-Generated Podcasts</h2>
+                    <h2>🎙️ AI-Generated Daily Podcasts</h2>
                     <p style="color: var(--neutral-600); margin-bottom: 30px;">
-                        Discover our latest AI-generated podcasts featuring intelligent discussions about trending topics, research insights, and technology developments.
+                        Discover our AI-generated podcasts featuring Edge-TTS dual voice synthesis (Alex and Sam personas) discussing trending technology and business topics from current events analysis.
                     </p>
                     
                     <div id="podcastGrid" class="podcast-grid">
@@ -434,7 +508,7 @@
                 <div class="section">
                     <h2>📊 Week in Review Analytics</h2>
                     <p style="color: var(--neutral-600); margin-bottom: 30px;">
-                        Explore comprehensive weekly analyses with keyword trends, topic clustering, and insightful summaries of the week's most important developments.
+                        Explore comprehensive weekly analyses with LLM-powered keyword consolidation, trend analysis, and interactive D3.js word cloud visualizations from 7 days of current events data.
                     </p>
                     
                     <div id="reviewGrid" class="review-grid">
@@ -451,50 +525,77 @@
                 <div class="section">
                     <h2>📥 Download MattGPT</h2>
                     
+                    <!-- Documentation Section -->
+                    <div class="documentation-section">
+                        <h4>📚 Documentation & Guides</h4>
+                        <p style="color: var(--neutral-600); margin-bottom: 20px;">
+                            Complete documentation to help you get started with MattGPT's features and customization options.
+                        </p>
+                        <div class="doc-buttons">
+                            <a href="docs/user-guide.pdf" class="doc-button" download>
+                                📖 User Guide
+                            </a>
+                            <a href="docs/installation-steps.pdf" class="doc-button" download>
+                                🔧 Installation Steps
+                            </a>
+                            <a href="docs/customization-info.pdf" class="doc-button" download>
+                                ⚙️ Customization Info
+                            </a>
+                            <a href="docs/project-schematic.pdf" class="doc-button" download>
+                                🗺️ Project Schematic
+                            </a>
+                        </div>
+                    </div>
+                    
                     <div class="download-instructions">
-                        <h4>🚀 Installation Instructions (NOTE: These are designed for Mac, your exact commands may differ)</h4>
+                        <h4>🚀 Installation Instructions</h4>
+                        <p style="margin-bottom: 15px; font-weight: 600; color: var(--accent-electric);">
+                            ⚠️ Advanced Setup Required - This is a local AI research platform running entirely on your computer
+                        </p>
                         <ol>
-                            <li><strong>This is not for the faint of heart! This is a proof of concept that it's possible to run a multi-agentic system, built and running for FREE on a local computer (even the LLM). It's not perfect but it works and it's a great way to learn. So step out of your comfort zone and have fun!</strong></li>
-                            <li><strong>Download the Archive:</strong> Click the download button below to get the complete MattGPT source code archive.</li>
-                            <li><strong>Extract Files:</strong> Unzip the <code>archive.zip</code> file to your preferred directory.</li>
-                            <li><strong>Install Python 3.12:</strong> Download from your preferred repo based on your operating system</li>
-                            <li><strong>Install Ollama:</strong> Visit Ollama website to find installer for your operating system.</li>
-                            <li><strong>Download your LLM:</strong> <code>ollama pull granite3.2:8b</code> MattGPT is already designed to use IBM's Granite 3.2:8b.</li>
-                            <li><strong>Configure Environment:</strong> In your working directory for this app, run <code>python3.12 -m venv .venv</code></li>
-                            <li><strong>Activate Your Environment:</strong> In your working directory for this app, run <code>. .venv/bin/activate</code></li>
-                            <li><strong>Install Dependencies:</strong> While in your environment, run <code>pip3 install -r requirements.txt</code> to install Python dependencies.</li>
-                            <li><strong>Install Additional Tools:</strong> FFMPEG for Podcast stitching, d3 for local word cloud creation</li>
-                            <li><strong>First Run:</strong> There is a script ready to go. Just type <code>./MattGPT.sh</code></li>
-                            <li><strong>Launch the UI:</strong> Open a web browser and type in: <code>http://localhost:5000</code></li>
-                            <li><strong>Change sources or Models:</strong> Edit the <code>sources_config.JSON</code>file and adjust anything you want!</li>
-
+                            <li><strong>Prerequisites:</strong> Python 3.12+, modern web browser, 16GB+ RAM recommended</li>
+                            <li><strong>Download Archive:</strong> Click the download button below to get the complete MattGPT source code</li>
+                            <li><strong>Install Ollama:</strong> Visit ollama.ai and install for your operating system</li>
+                            <li><strong>Download AI Model:</strong> Run <code>ollama pull granite3.2:8b</code> (IBM's Granite 3.2)</li>
+                            <li><strong>Setup Python Environment:</strong> 
+                                <ul style="margin: 10px 0; padding-left: 20px;">
+                                    <li><code>python3.12 -m venv .venv</code></li>
+                                    <li><code>source .venv/bin/activate</code> (Mac/Linux) or <code>.venv\Scripts\activate</code> (Windows)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Install Dependencies:</strong> <code>pip install -r requirements.txt</code></li>
+                            <li><strong>Install Additional Tools:</strong> FFmpeg for audio processing, optional Edge-TTS for voice synthesis</li>
+                            <li><strong>Configure Sources:</strong> Edit <code>sources_config.json</code> to customize RSS feeds and search providers</li>
+                            <li><strong>Launch Application:</strong> Run <code>./MattGPT.sh</code> or <code>python app.py</code></li>
+                            <li><strong>Access Interface:</strong> Open browser to <code>http://localhost:5000</code></li>
                         </ol>
                         
-                        <h4>🔧 System Requirements</h4>
+                        <h4>🔧 System Architecture</h4>
                         <ul style="margin-top: 15px; color: var(--neutral-700);">
-                            <li>Python 3.12+ with pip package manager</li>
-                            <li>16GB+ RAM for optimal LLM processing</li>
-                            <li>Internet connection for web search and API access</li>
-                            <li>Modern web browser with JavaScript enabled (Chrome preferred)</li>
-                            <li>Lots of patience and a desire to learn</li>
+                            <li><strong>Two-Track Design:</strong> Chain Operations + Enhanced Chat separation</li>
+                            <li><strong>Local AI:</strong> IBM Granite 3.2:8b via Ollama (no cloud dependencies)</li>
+                            <li><strong>Modular Components:</strong> Content Curator, Current Events Analyzer, Podcast Generator</li>
+                            <li><strong>Data Storage:</strong> SQLite database with CSV-based customer management</li>
+                            <li><strong>Optional Integrations:</strong> Google Custom Search, PDF processing, Edge-TTS</li>
                         </ul>
                         
-                        <h4>🎯 Optional Features</h4>
+                        <h4>🎯 Key Features</h4>
                         <ul style="margin-top: 15px; color: var(--neutral-700);">
-                            <li><strong>Edge-TTS:</strong> For high-quality podcast voice synthesis</li>
-                            <li><strong>API Keys:</strong> Google Custom Search, OpenAI, or local LLM setup</li>
-                            <li><strong>PDF Processing:</strong> Additional libraries for enhanced document analysis</li>
+                            <li><strong>Privacy-First:</strong> All processing happens locally on your machine</li>
+                            <li><strong>Customizable:</strong> JSON configuration for sources, interests, and analysis parameters</li>
+                            <li><strong>Multi-Format Output:</strong> Articles, podcasts, word clouds, and analytical reports</li>
+                            <li><strong>Customer Insights:</strong> CSV-based customer database with research capabilities</li>
                         </ul>
                         
                         <a href="download/Archive.zip" class="archive-download" download>
-                            📦 Download MattGPT Archive
+                            📦 Download MattGPT Archive (Complete Source Code)
                         </a>
                     </div>
                     
                     <div style="background: var(--primary-50); border-radius: var(--radius-md); padding: 20px; margin-top: 30px; border-left: 4px solid var(--accent-neon);">
-                        <h4 style="color: var(--primary-700); margin-bottom: 10px;">💡 Need Help?</h4>
+                        <h4 style="color: var(--primary-700); margin-bottom: 10px;">💡 Development Philosophy</h4>
                         <p style="color: var(--neutral-700); margin: 0;">
-                            I strongly suggest, especially if you're learning, to have an assistant like Claude or ChatGPT that you can show errors, let them analyze files, and help you fix problems or make changes. It's an amazing helper, just don't let them do everything for you!
+                            MattGPT demonstrates that sophisticated AI research workflows can run entirely locally without cloud dependencies. Use AI assistants like Claude or ChatGPT to help troubleshoot and customize the system, but maintain full control over your data and processing.
                         </p>
                     </div>
                 </div>
@@ -505,49 +606,62 @@
         <div id="architecture" class="tab-content">
             <div class="main-content">
                 <div class="section">
-                    <h2>🔧 The Tech Behind It</h2>
+                    <h2>🔧 Technical Architecture Overview</h2>
                         <p style="color: var(--neutral-600); margin-bottom: 30px;">
-                            Discover the sophisticated architecture powering MattGPT's intelligent research capabilities, from multi-provider search integration to AI-powered content generation.
+                            MattGPT implements a sophisticated Two-Track Architecture enabling both complex automated workflows and conversational interactions, all powered by local AI models.
                         </p>
 
                         <div class="workflow-grid">
                             <div class="workflow-card">
-                                <div class="workflow-title">🤖 Advanced AI Integration</div>
+                                <div class="workflow-title">🏗️ Two-Track Architecture</div>
                                 <div class="workflow-description">
-                                    LLM-powered analysis with Granite3.2:8b for summarization, relevance scoring, and intelligent trend consolidation across multiple data sources.
+                                    Separate operational tracks: Chain Operations Manager for complex workflows, Enhanced Chat Manager for conversational interactions with proper separation of concerns.
                                 </div>
                             </div>
 
                             <div class="workflow-card">
-                                <div class="workflow-title">🌐 Multi-Provider Search</div>
+                                <div class="workflow-title">🤖 Local AI Integration</div>
                                 <div class="workflow-description">
-                                    Intelligent search orchestration across DuckDuckGo, Google Custom Search, and Bing with automatic fallbacks and result aggregation.
+                                    IBM Granite 3.2:8b model via Ollama for content analysis, summarization, relevance scoring, and conversational responses without cloud dependencies.
                                 </div>
                             </div>
 
                             <div class="workflow-card">
-                                <div class="workflow-title">🎙️ Edge-TTS Audio Synthesis</div>
+                                <div class="workflow-title">🔄 Chain Operations</div>
                                 <div class="workflow-description">
-                                    High-quality voice synthesis with dual speaker personalities, intelligent pause insertion, and seamless audio assembly for podcast generation.
+                                    Direct orchestration of complex workflows including current events analysis, week review generation, and podcast creation with progress tracking.
                                 </div>
                             </div>
 
                             <div class="workflow-card">
-                                <div class="workflow-title">📊 Real-time Analytics</div>
+                                <div class="workflow-title">💬 Enhanced Chat System</div>
                                 <div class="workflow-description">
-                                    D3.js visualizations with interactive word clouds, hot topics boost algorithms, and comprehensive week-in-review trend analysis.
+                                    Stateful conversational interface with session management, article context, customer database queries, and URL analysis capabilities.
+                                </div>
+                            </div>
+
+                            <div class="workflow-card">
+                                <div class="workflow-title">📊 Content Processing</div>
+                                <div class="workflow-description">
+                                    Multi-source RSS collection, web scraping, PDF processing, and AI-powered content curation with relevance scoring and hot topics detection.
+                                </div>
+                            </div>
+
+                            <div class="workflow-card">
+                                <div class="workflow-title">🎙️ Audio Generation</div>
+                                <div class="workflow-description">
+                                    Edge-TTS integration for high-quality voice synthesis with dual speaker personalities and intelligent dialogue script generation.
                                 </div>
                             </div>
                         </div>
 
                         <div style="text-align: center; margin: 40px 0; padding: 30px; background: var(--gradient-surface); border-radius: var(--radius-lg); border: 2px solid var(--accent-electric);">
                             <div style="font-size: 3em; margin-bottom: 15px;">🏗️</div>
-                            <h3 style="color: var(--primary-600); margin-bottom: 15px;">Deep Dive into the Architecture</h3>
+                            <h3 style="color: var(--primary-600); margin-bottom: 15px;">Deep Technical Documentation</h3>
                             <p style="color: var(--neutral-600); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                                Explore comprehensive technical documentation, workflow diagrams, interactive demonstrations, and detailed implementation guides for every component of the MattGPT platform.
+                                Explore comprehensive technical documentation including system architecture diagrams, API endpoints, database schemas, and implementation details for every component.
                             </p>
-                            <a href="architecture.html" class="cta-button" target="_blank">📖 Explore Technical Architecture</a>
-                            </a>
+                            <a href="architecture.html" class="cta-button" target="_blank">📖 View Full Architecture Documentation</a>
                         </div>
                 </div>
             </div>
@@ -600,194 +714,67 @@
                     grid.innerHTML = `
                         <div class="empty-state">
                             <div class="empty-state-icon">🎙️</div>
-                            <p>No podcasts available yet. Check back soon for AI-generated content!</p>
+                            <p>No podcasts available yet. Use the Daily Podcast button to generate AI-powered content!</p>
                         </div>
                     `;
                     return;
                 }
 
-                // Create a simple list of available files (similar to week reviews)
-                grid.innerHTML = `
-                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
-                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            ${podcasts.map(podcast => `
-                                <li style="margin-bottom: 15px;">
-                                    <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                        <span style="font-size: 1.5em;">🎙️</span>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: var(--primary-600);">${podcast.title}</div>
-                                            <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${podcast.date} • ${podcast.duration}</div>
-                                            <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">${podcast.description}</div>
-                                        </div>
-                                        <div style="display: flex; gap: 10px; align-items: center;">
-                                            <button onclick="togglePodcastPlayer('${podcast.filename}', this)"
-                                                    style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
-                                                    onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                                    onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
-                                                🎧 Listen
-                                            </button>
-                                            <a href="podcast/${podcast.filename}"
-                                               style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
-                                               onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                               onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
-                                               download>
-                                                📥 Download
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                        <audio controls style="width: 100%; max-width: 100%;">
-                                            <source src="podcast/${podcast.filename}" type="audio/mpeg">
-                                            Your browser does not support the audio element.
-                                        </audio>
-                                    </div>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                `;
+                // Create podcast list
+                grid.innerHTML = createPodcastList(podcasts);
 
             } catch (error) {
                 // Fallback for development/demo
-                grid.innerHTML = `
-                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
-                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            <li style="margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <span style="font-size: 1.5em;">🎙️</span>
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: var(--primary-600);">Daily Tech Digest - June 23, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-23 • 15:30 duration</div>
-                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">AI-generated discussion covering today's hottest tech topics, including breakthrough developments in machine learning.</div>
-                                    </div>
-                                    <div style="display: flex; gap: 10px; align-items: center;">
-                                        <button onclick="togglePodcastPlayer('podcast_20250623.mp3', this)"
-                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
-                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
-                                            🎧 Listen
-                                        </button>
-                                        <a href="podcast/podcast_20250623.mp3"
-                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
-                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
-                                           download>
-                                            📥 Download
-                                        </a>
-                                    </div>
-                                </div>
-                                <div id="player-podcast20250623mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                    <audio controls style="width: 100%; max-width: 100%;">
-                                        <source src="podcast/podcast_20250623.mp3" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                </div>
-                            </li>
-
-                            <li style="margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <span style="font-size: 1.5em;">🎙️</span>
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: var(--primary-600);">Research Roundup - June 24, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-24 • 18:45 duration</div>
-                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Weekly research highlights featuring cutting-edge papers from arXiv and industry insights.</div>
-                                    </div>
-                                    <div style="display: flex; gap: 10px; align-items: center;">
-                                        <button onclick="togglePodcastPlayer('podcast_20250624.mp3', this)"
-                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
-                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
-                                            🎧 Listen
-                                        </button>
-                                        <a href="podcast/podcast_20250624.mp3"
-                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
-                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
-                                           download>
-                                            📥 Download
-                                        </a>
-                                    </div>
-                                </div>
-                                <div id="player-podcast20250624mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                    <audio controls style="width: 100%; max-width: 100%;">
-                                        <source src="podcast/podcast_20250624.mp3" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                </div>
-                            </li>
-
-                            <li style="margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <span style="font-size: 1.5em;">🎙️</span>
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: var(--primary-600);">Startup Spotlight - June 25, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-25 • 12:20 duration</div>
-                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Featured discussions about emerging startups and innovative business models.</div>
-                                    </div>
-                                    <div style="display: flex; gap: 10px; align-items: center;">
-                                        <button onclick="togglePodcastPlayer('podcast_20250625.mp3', this)"
-                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
-                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
-                                            🎧 Listen
-                                        </button>
-                                        <a href="podcast/podcast_20250625.mp3"
-                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
-                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
-                                           download>
-                                            📥 Download
-                                        </a>
-                                    </div>
-                                </div>
-                                <div id="player-podcast20250625mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                    <audio controls style="width: 100%; max-width: 100%;">
-                                        <source src="podcast/podcast_20250625.mp3" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                </div>
-                            </li>
-
-                            <li style="margin-bottom: 15px;">
-                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <span style="font-size: 1.5em;">🎙️</span>
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: var(--primary-600);">Content Creation Focus - June 26, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-26 • 14:15 duration</div>
-                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">Big news shifts to videos and content creation in today's topics.</div>
-                                    </div>
-                                    <div style="display: flex; gap: 10px; align-items: center;">
-                                        <button onclick="togglePodcastPlayer('podcast_20250626.mp3', this)"
-                                                style="background: var(--accent-electric); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast);"
-                                                onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                                onmouseout="this.style.background='var(--accent-electric)'; this.style.transform='translateY(0)';">
-                                            🎧 Listen
-                                        </button>
-                                        <a href="podcast/podcast_20250626.mp3"
-                                           style="background: var(--primary-600); color: var(--neutral-0); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9em; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; display: inline-block;"
-                                           onmouseover="this.style.background='var(--primary-700)'; this.style.transform='translateY(-1px)';"
-                                           onmouseout="this.style.background='var(--primary-600)'; this.style.transform='translateY(0)';"
-                                           download>
-                                            📥 Download
-                                        </a>
-                                    </div>
-                                </div>
-                                <div id="player-podcast20250626mp3" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
-                                    <audio controls style="width: 100%; max-width: 100%;">
-                                        <source src="podcast/podcast_20250626.mp3" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                `;
+                grid.innerHTML = createDemoPodcastList();
             }
         }
 
-        // Add this new function for the podcast player toggle:
+        function createPodcastList(podcasts) {
+            return `
+                <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                    <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ Available Podcasts</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${podcasts.map(podcast => `
+                            <li style="margin-bottom: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="font-size: 1.5em;">🎙️</span>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: var(--primary-600);">${podcast.title}</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${podcast.date} • ${podcast.duration}</div>
+                                        <div style="font-size: 0.85em; color: var(--neutral-600); margin-top: 5px;">${podcast.description}</div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <button onclick="togglePodcastPlayer('${podcast.filename}', this)" class="download-button">🎧 Listen</button>
+                                        <a href="podcast/${podcast.filename}" class="download-button" download>📥 Download</a>
+                                    </div>
+                                </div>
+                                <div id="player-${podcast.filename.replace(/[^a-zA-Z0-9]/g, '')}" style="display: none; margin-top: 10px; padding: 15px; background: var(--neutral-50); border-radius: var(--radius-md); border: 1px solid var(--neutral-200);">
+                                    <audio controls style="width: 100%; max-width: 100%;">
+                                        <source src="podcast/${podcast.filename}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createDemoPodcastList() {
+            return `
+                <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                    <h3 style="color: var(--primary-600); margin-bottom: 20px;">🎙️ AI-Generated Podcasts</h3>
+                    <p style="color: var(--neutral-600); margin-bottom: 20px;">Generated podcasts will appear here after using the Daily Podcast feature. Each podcast features AI-generated dialogue between Alex and Sam discussing trending topics.</p>
+                    <div style="text-align: center; padding: 20px; background: var(--neutral-50); border-radius: var(--radius-md); border: 2px dashed var(--neutral-300);">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🎙️</div>
+                        <p style="color: var(--neutral-500); margin: 0;">Use the "Daily Podcast" button on the main interface to generate your first AI podcast!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Podcast player toggle function
         function togglePodcastPlayer(filename, button) {
             const playerId = 'player-' + filename.replace(/[^a-zA-Z0-9]/g, '');
             const player = document.getElementById(playerId);
@@ -797,165 +784,88 @@
                 button.innerHTML = '⏹️ Hide';
                 button.style.background = 'var(--neutral-500)';
 
-                // Auto-play the audio when showing the player
                 const audio = player.querySelector('audio');
                 if (audio) {
-                    audio.play().catch(e => {
-                        console.log('Auto-play prevented by browser policy');
-                    });
+                    audio.play().catch(e => console.log('Auto-play prevented by browser policy'));
                 }
             } else {
                 player.style.display = 'none';
                 button.innerHTML = '🎧 Listen';
                 button.style.background = 'var(--accent-electric)';
 
-                // Pause the audio when hiding the player
                 const audio = player.querySelector('audio');
-                if (audio) {
-                    audio.pause();
-                }
+                if (audio) audio.pause();
             }
         }
 
-        // Load week reviews from wir/ folder
+        // Load week reviews
         async function loadWeekReviews() {
             const grid = document.getElementById('reviewGrid');
             window.reviewsLoaded = true;
 
             try {
-                // Simulate API call to get week review files
                 const response = await fetch('/api/week-reviews');
-
-                if (!response.ok) {
-                    throw new Error('Failed to load reviews');
-                }
+                if (!response.ok) throw new Error('Failed to load reviews');
 
                 const reviews = await response.json();
-
                 if (reviews.length === 0) {
                     grid.innerHTML = `
                         <div class="empty-state">
                             <div class="empty-state-icon">📊</div>
-                            <p>No week reviews available yet. Analysis reports will appear here once generated!</p>
+                            <p>No week reviews available yet. Use the "Week in Review" button to generate comprehensive weekly analysis!</p>
                         </div>
                     `;
                     return;
                 }
 
-                // Create a simple list of available files
-                grid.innerHTML = `
-                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
-                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Available Week Reviews</h3>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            ${reviews.map(review => `
-                                <li style="margin-bottom: 15px;">
-                                    <a href="javascript:void(0)"
-                                       onclick="openWeekReview('${review.filename}')"
-                                       style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
-                                        <span style="font-size: 1.5em;">📊</span>
-                                        <div>
-                                            <div style="font-weight: 600; color: var(--primary-600);">${review.title}</div>
-                                            <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${review.date} • ${review.topicsCount} topics analyzed</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                `;
+                grid.innerHTML = createWeekReviewList(reviews);
 
             } catch (error) {
-                // Fallback for development/demo - generate list based on current_events_analysis pattern
-                grid.innerHTML = `
-                    <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
-                        <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Available Week Reviews</h3>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            <li style="margin-bottom: 15px;">
-                                <a href="javascript:void(0)"
-                                   onclick="openWeekReview('week_review_2025-06-26.json')"
-                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
-                                    <span style="font-size: 1.5em;">📊</span>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 26, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-26 • Technology & Business Focus</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li style="margin-bottom: 15px;">
-                                <a href="javascript:void(0)"
-                                   onclick="openWeekReview('week_review_2025-06-25.json')"
-                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
-                                    <span style="font-size: 1.5em;">📊</span>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 25, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-25 • Technology & Business Focus</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li style="margin-bottom: 15px;">
-                                <a href="javascript:void(0)"
-                                   onclick="openWeekReview('week_review_2025-06-24.json')"
-                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
-                                    <span style="font-size: 1.5em;">📊</span>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 24, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-24 • Technology & Business Focus</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <!-- Date: 20250623 -->
-                            <li style="margin-bottom: 15px;">
-                                <a href="javascript:void(0)"
-                                   onclick="openWeekReview('week_review_2025-06-23.json')"
-                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
-                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
-                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
-                                    <span style="font-size: 1.5em;">📊</span>
-                                    <div>
-                                        <div style="font-weight: 600; color: var(--primary-600);">Current Events Analysis - June 23, 2025</div>
-                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">2025-06-23 • Technology & Business Focus</div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                `;
+                grid.innerHTML = createDemoWeekReviewList();
             }
         }
 
-        // Function to open week review in new tab
+        function createWeekReviewList(reviews) {
+            return `
+                <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                    <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Available Week Reviews</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${reviews.map(review => `
+                            <li style="margin-bottom: 15px;">
+                                <a href="javascript:void(0)" onclick="openWeekReview('${review.filename}')" 
+                                   style="display: flex; align-items: center; gap: 10px; padding: 15px; background: var(--neutral-0); border-radius: var(--radius-md); text-decoration: none; color: var(--primary-600); border-left: 4px solid var(--accent-electric); transition: all var(--transition-normal); box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.15)';"
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';">
+                                    <span style="font-size: 1.5em;">📊</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: var(--primary-600);">${review.title}</div>
+                                        <div style="font-size: 0.9em; color: var(--neutral-500); margin-top: 3px;">${review.date} • ${review.topicsCount} topics analyzed</div>
+                                    </div>
+                                </a>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createDemoWeekReviewList() {
+            return `
+                <div style="background: var(--gradient-surface); border-radius: var(--radius-lg); padding: 30px;">
+                    <h3 style="color: var(--primary-600); margin-bottom: 20px;">📋 Week in Review Analytics</h3>
+                    <p style="color: var(--neutral-600); margin-bottom: 20px;">Generated weekly analyses with keyword consolidation, trend analysis, and D3.js word clouds will appear here after using the Week in Review feature.</p>
+                    <div style="text-align: center; padding: 20px; background: var(--neutral-50); border-radius: var(--radius-md); border: 2px dashed var(--neutral-300);">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📊</div>
+                        <p style="color: var(--neutral-500); margin: 0;">Use the "Week in Review" button to generate comprehensive weekly analysis reports!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to open week review
         function openWeekReview(filename) {
             const url = `week_review_display.html?file=${encodeURIComponent(filename)}`;
             window.open(url, '_blank');
-        }
-
-        // Check for video file and show/hide accordingly
-        function checkVideoAvailability() {
-            const video = document.getElementById('aboutVideo');
-            const placeholder = document.getElementById('videoPlaceholder');
-            
-            video.addEventListener('loadeddata', function() {
-                video.style.display = 'block';
-                placeholder.style.display = 'none';
-            });
-            
-            video.addEventListener('error', function() {
-                placeholder.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <div style="font-size: 3em; opacity: 0.5;">🎬</div>
-                        <div>Video: aboutMattGPT.mp4</div>
-                        <div style="font-size: 0.8em; opacity: 0.7;">(Video file not found)</div>
-                    </div>
-                `;
-            });
         }
 
         // Dark mode toggle
@@ -979,7 +889,7 @@
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            checkVideoAvailability();
+            console.log('MattGPT Homepage initialized - Two-Track Architecture');
         });
     </script>
 </body>
